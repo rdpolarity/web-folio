@@ -9,9 +9,6 @@ interface LayoutProps {
 const AppLayout = ({children} : LayoutProps) => {
   return (
     <Layout>
-      <Header>
-        <h1>Header</h1>
-      </Header>
       <Content>
         {children}
       </Content>
