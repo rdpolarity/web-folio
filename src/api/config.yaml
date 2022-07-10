@@ -1,0 +1,15 @@
+override: true
+schema: ${ENDPOINT}
+documents: './src/api/**/*.graphql'
+generates:
+  ./src/api/generated/api.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: ${ENDPOINT}
+        fetchParams:
+          headers:
+            Content-Type: application/json
