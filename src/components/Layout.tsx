@@ -12,9 +12,6 @@ const AppLayout = ({children} : LayoutProps) => {
       <Content>
         {children}
       </Content>
-      <Footer>
-        Cool
-      </Footer>
     </Layout>
   )
 }
