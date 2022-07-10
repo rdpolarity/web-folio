@@ -1,5 +1,5 @@
 override: true
-schema: ${ENDPOINT}
+schema: ${NEXT_PUBLIC_ENDPOINT}/graphql
 documents: './src/api/**/*.graphql'
 generates:
   ./src/api/generated/api.ts:
@@ -9,7 +9,7 @@ generates:
       - typescript-react-query
     config:
       fetcher:
-        endpoint: ${ENDPOINT}
+        endpoint: ${NEXT_PUBLIC_ENDPOINT}/graphql
         fetchParams:
           headers:
             Content-Type: application/json

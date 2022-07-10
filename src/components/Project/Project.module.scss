@@ -1,0 +1,11 @@
+.project {
+  width: 240px;
+  &Cover {
+    height: 200px;
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}

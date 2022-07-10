@@ -1,14 +1,30 @@
-import { Card } from 'antd'
+import { ComponentComponentsTag } from '@api/generated/api'
+import { Card, Tag } from 'antd'
 import Meta from 'antd/lib/card/Meta'
+import Image from 'next/image'
 import React from 'react'
+import styles from './Project.module.scss'
 
-const Project = () => {
+interface ProjectProps {
+  title?: string | null,
+  thumbnail?: string,
+  tags?: ComponentComponentsTag[],
+}
+
+const Project = (props : ProjectProps) => {
+  const thumbnail = <div className={styles.projectCover}>
+    <img src={`${process.env.NEXT_PUBLIC_ENDPOINT ?? ''}${props.thumbnail}`} alt={props.title ?? ''}/>
+  </div>
+
   return (
     <Card
       hoverable
-      cover={<div>deez</div>}
+      bordered
+      title={props.title}
+      cover={thumbnail}
+      className={styles.project}
     >
-      <Meta title="Card title" description="This is the description" />
+      {props.tags?.map((tag, index) => (<Tag key={index} color={tag.colour ?? 'default'}>{tag.name} {tag.colour ?? 'none'}</Tag>))}
     </Card>
   )
 }

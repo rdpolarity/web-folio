@@ -4,7 +4,7 @@ module.exports = {
   client: {
     service: {
       name: "web-folio-cms",
-      url: process.env.ENDPOINT,
+      url: process.env.NEXT_PUBLIC_ENDPOINT,
     }
   }
 };

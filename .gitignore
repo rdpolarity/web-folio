@@ -36,3 +36,4 @@ yarn-error.log*
 
 # graphql
 /src/api/generated
+.env

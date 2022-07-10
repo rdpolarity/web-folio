@@ -4,6 +4,23 @@ query Projects {
       id
       attributes {
         title
+        tags {
+          name
+          icon {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+        thumbnail {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
       }
     }
   }
