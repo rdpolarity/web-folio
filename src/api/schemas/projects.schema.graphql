@@ -3,13 +3,18 @@ query Projects {
     data {
       id
       attributes {
-        title
-        tags {
-          name
-          icon {
-            data {
-              attributes {
-                url
+				name
+				tags {
+          data {
+            attributes {
+              name
+              colour
+              icon {
+                data {
+                  attributes {
+                    url
+                  }
+                }
               }
             }
           }

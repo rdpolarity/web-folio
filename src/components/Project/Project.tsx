@@ -1,4 +1,4 @@
-import { ComponentComponentsTag } from '@api/generated/api'
+import { ComponentComponentsTag, TagEntity } from '@api/generated/api'
 import { Card, Tag } from 'antd'
 import Meta from 'antd/lib/card/Meta'
 import Image from 'next/image'
@@ -8,7 +8,7 @@ import styles from './Project.module.scss'
 interface ProjectProps {
   title?: string | null,
   thumbnail?: string,
-  tags?: ComponentComponentsTag[],
+  tags?: Array<TagEntity>,
 }
 
 const Project = (props : ProjectProps) => {
@@ -24,7 +24,9 @@ const Project = (props : ProjectProps) => {
       cover={thumbnail}
       className={styles.project}
     >
-      {props.tags?.map((tag, index) => (<Tag key={index} color={tag.colour ?? 'default'}>{tag.name} {tag.colour ?? 'none'}</Tag>))}
+      <div className={styles.projectTags}>
+        {props.tags?.map((tag, index) => (<Tag icon={<img className={styles.projectTagsIcon} src={tag.attributes?.icon?.data?.attributes?.url}/>} style={{margin: 0}} key={index} color={tag.attributes?.colour ?? 'default'}>{tag.attributes?.name}</Tag>))}
+      </div>
     </Card>
   )
 }

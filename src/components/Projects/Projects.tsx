@@ -12,10 +12,10 @@ const Projects = () => {
 
   const projects = data?.projects?.data.map((project, index) => {
     const attributes = project.attributes;
-    const tags = attributes?.tags
+    const tags = attributes?.tags?.data
     return <Project
       key={index}
-      title={attributes?.title}
+      title={attributes?.name}
       tags={tags}
       thumbnail={attributes?.thumbnail?.data?.attributes?.url} />
   });
@@ -24,8 +24,6 @@ const Projects = () => {
     <div>
       <Typography.Title level={1}>Projects</Typography.Title>
       <div className={styles.projects}>
-        {projects}
-        {projects}
         {projects}
       </div>
     </div>
