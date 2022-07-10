@@ -8,12 +8,12 @@ import styles from './Project.module.scss'
 interface ProjectProps {
   title?: string | null,
   thumbnail?: string,
-  tags?: Array<TagEntity>,
+  tags?: Array<TagEntity> | any,
 }
 
 const Project = (props : ProjectProps) => {
   const thumbnail = <div className={styles.projectCover}>
-    <img src={`${process.env.NEXT_PUBLIC_ENDPOINT ?? ''}${props.thumbnail}`} alt={props.title ?? ''}/>
+    <img src={`${props.thumbnail}`} alt={props.title ?? ''}/>
   </div>
 
   return (
@@ -25,7 +25,7 @@ const Project = (props : ProjectProps) => {
       className={styles.project}
     >
       <div className={styles.projectTags}>
-        {props.tags?.map((tag, index) => (<Tag icon={<img className={styles.projectTagsIcon} src={tag.attributes?.icon?.data?.attributes?.url}/>} style={{margin: 0}} key={index} color={tag.attributes?.colour ?? 'default'}>{tag.attributes?.name}</Tag>))}
+        {props.tags?.map((tag : any, index : any) => (<Tag icon={<img className={styles.projectTagsIcon} src={tag.attributes?.icon?.data?.attributes?.url}/>} style={{margin: 0}} key={index} color={tag.attributes?.colour ?? 'default'}>{tag.attributes?.name}</Tag>))}
       </div>
     </Card>
   )
