@@ -22,16 +22,18 @@ const Projects = () => {
   const [filteredProjectList, setFilteredProjectList] = React.useState<ProjectEntity[]>()
 
   React.useEffect(() => {
-    console.log(filter)
     if (!filter || filter.length === 0) {
       setFilteredProjectList(projectList)
       return
     }
-    const fuse = new Fuse(projectList ?? [], {
-      keys: ['attributes.tags.data.attributes.name'],
-    })
-    const filteredProjects = fuse.search('=' + filter.join(' ='))
-    setFilteredProjectList(filteredProjects.map((project) => project.item));
+    const filteredProjects = projectList?.filter((project) => project.attributes?.tags?.data.some((tag) => {
+      return (filter.some((filterTag) => {
+        return filterTag.toLocaleLowerCase() == tag.attributes?.name.toLocaleLowerCase()
+      }));
+    }));
+    console.log(filteredProjects)
+    
+    setFilteredProjectList(filteredProjects);
   }, [filter, projectList])
 
   if (isError) return <div>{error as any}</div>
