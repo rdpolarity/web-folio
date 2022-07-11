@@ -17,12 +17,13 @@ const Projects = () => {
   })
   const { data: tags, isLoading: isLoadingTags, isError: isErrorTags, error: errorTags } = api.useTagsQuery()
 
-  const [filter, setFilter] = React.useState<string[]>([])
+  const [filter, setFilter] = React.useState<string[] | undefined>(undefined)
   const [projectList, setProjectList] = React.useState<ProjectEntity[]>()
   const [filteredProjectList, setFilteredProjectList] = React.useState<ProjectEntity[]>()
 
   React.useEffect(() => {
-    if (filter.length === 0) {
+    console.log(filter)
+    if (!filter || filter.length === 0) {
       setFilteredProjectList(projectList)
       return
     }
@@ -30,9 +31,8 @@ const Projects = () => {
       keys: ['attributes.tags.data.attributes.name'],
     })
     const filteredProjects = fuse.search('=' + filter.join(' ='))
-    console.log(filteredProjects)
     setFilteredProjectList(filteredProjects.map((project) => project.item));
-  }, [filter])
+  }, [filter, projectList])
 
   if (isError) return <div>{error as any}</div>
 
