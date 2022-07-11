@@ -1,0 +1,17 @@
+query Tags {
+  tags {
+    data {
+      attributes {
+        name
+        colour
+        icon {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+}

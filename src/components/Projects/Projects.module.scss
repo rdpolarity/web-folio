@@ -6,3 +6,14 @@
   width: fit-content;
   justify-content: center;
 }
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter {
+  margin: 8px 0;
+}
