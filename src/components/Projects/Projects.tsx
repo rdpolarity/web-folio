@@ -39,9 +39,8 @@ const Projects = () => {
 
   const loadingCard = <Card style={{ width: 230, height: 300 }} loading>
     <Meta
-      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-      title="Card title"
-      description="This is the description"
+      title="Loading Card"
+      description="This is loading placeholder"
     />
   </Card>
 
