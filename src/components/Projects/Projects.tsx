@@ -31,7 +31,6 @@ const Projects = () => {
         return filterTag.toLocaleLowerCase() == tag.attributes?.name.toLocaleLowerCase()
       }));
     }));
-    console.log(filteredProjects)
     
     setFilteredProjectList(filteredProjects);
   }, [filter, projectList])
