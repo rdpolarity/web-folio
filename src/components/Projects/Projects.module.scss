@@ -1,10 +1,12 @@
 .projects {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  align-items: center;
-  width: fit-content;
+  flex-grow: 1;
+  gap: 26px;
+
+  width: 100%;
   justify-content: center;
+  margin-bottom: 100px;
 }
 
 .alert {
@@ -15,5 +17,5 @@
 }
 
 .filter {
-  margin: 8px 0;
+  margin: 24px 0;
 }

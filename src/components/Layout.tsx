@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import { Content, Footer, Header } from 'antd/lib/layout/layout';
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import Edit from './Edit/Edit';
 
 interface LayoutProps {
@@ -13,7 +13,7 @@ const AppLayout = ({ children }: LayoutProps) => {
       <Content>
         {children}
       </Content>
-      <Edit/>
+      <Edit />
     </div>
   )
 }

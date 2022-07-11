@@ -1,20 +1,61 @@
-import { Alert, Select, Spin, Tag, TagProps, Typography } from 'antd'
+import { Alert, Avatar, Card, Select, Skeleton, Spin, Tag, TagProps, Typography } from 'antd'
 import Project from '@components/Project/Project'
 import React from 'react'
 import styles from './Projects.module.scss'
 import api from '@api/api'
 import { SearchOutlined } from '@ant-design/icons'
-import { Tag as TagType } from '@api/generated/api'
+import { ProjectEntity, ProjectsQuery, Tag as TagType } from '@api/generated/api'
 import type { CustomTagProps } from 'rc-select/lib/BaseSelect';
+import Meta from 'antd/lib/card/Meta'
+import Fuse from 'fuse.js'
 
 const Projects = () => {
-  const { data, isLoading, isError, error } = api.useProjectsQuery()
+  const { isLoading, isError, error } = api.useProjectsQuery({}, {
+    onSuccess(data) {
+      setProjectList(data?.projects?.data as ProjectEntity[])
+    },
+  })
   const { data: tags, isLoading: isLoadingTags, isError: isErrorTags, error: errorTags } = api.useTagsQuery()
 
-  if (isLoading) return <Spin />
+  const [filter, setFilter] = React.useState<string[]>([])
+  const [projectList, setProjectList] = React.useState<ProjectEntity[]>()
+  const [filteredProjectList, setFilteredProjectList] = React.useState<ProjectEntity[]>()
+
+  React.useEffect(() => {
+    if (filter.length === 0) {
+      setFilteredProjectList(projectList)
+      return
+    }
+    const fuse = new Fuse(projectList ?? [], {
+      keys: ['attributes.tags.data.attributes.name'],
+    })
+    const filteredProjects = fuse.search('=' + filter.join(' ='))
+    console.log(filteredProjects)
+    setFilteredProjectList(filteredProjects.map((project) => project.item));
+  }, [filter])
+
   if (isError) return <div>{error as any}</div>
 
-  const projects = data?.projects?.data.map((project, index) => {
+  const loadingCard = <Card style={{ width: 230, height: 300 }} loading>
+    <Meta
+      avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+      title="Card title"
+      description="This is the description"
+    />
+  </Card>
+
+  const loadingProjects = <>
+    {loadingCard}
+    {loadingCard}
+    {loadingCard}
+    {loadingCard}
+    {loadingCard}
+    {loadingCard}
+    {loadingCard}
+    {loadingCard}
+  </>;
+
+  const projects = filteredProjectList?.map((project, index) => {
     const attributes = project.attributes;
     const tags = attributes?.tags?.data
     return <Project
@@ -23,22 +64,6 @@ const Projects = () => {
       tags={tags}
       thumbnail={attributes?.thumbnail?.data?.attributes?.url} />
   });
-
-  const customTag = (props: CustomTagProps) => {
-    const { label, value, closable, onClose } = props;
-    
-    const onPreventMouseDown = (event: React.MouseEvent<HTMLSpanElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-    };
-
-    return React.cloneElement(label as any, {
-      onMouseDown: onPreventMouseDown,
-      closable: closable,
-      onClose: onClose,
-      className: styles.tag,
-    });
-  }
 
   return (
     <div>
@@ -50,18 +75,17 @@ const Projects = () => {
           mode="multiple"
           showSearch
           showArrow
-          tagRender={customTag}
           style={{ width: '100%' }}
           size='large'
+          placement='topLeft'
           suffixIcon={<SearchOutlined />}
-          placeholder="Filter Projects"
-          onChange={() => { }}
+          onChange={setFilter}
         >
-          {tags?.tags?.data.map((tag, index) => (<Select.Option key={index} value={tag.attributes?.name}><Tag color={tag.attributes?.colour ?? 'default'}>{tag.attributes?.name}</Tag></Select.Option>))}
+          {tags?.tags?.data.map((tag, index) => (<Select.Option key={index} value={tag.attributes?.name}>{tag.attributes?.name}</Select.Option>))}
         </Select>
       </div>
       <div className={styles.projects}>
-        {projects}
+        {(!isLoading) ? projects : loadingProjects}
       </div>
     </div>
   )

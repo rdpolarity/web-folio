@@ -10,7 +10,7 @@ const Splash = () => {
       <div className={styles.splashImage}>
         <Image src={splash} alt="Aiden Mellor"/>
       </div>
-      <Button size='large'>Resume</Button>
+      {/* <Button size='large'>Resume</Button> */}
     </div>
   )
 }

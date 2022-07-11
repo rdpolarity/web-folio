@@ -1,7 +1,5 @@
-import { ComponentComponentsTag, TagEntity } from '@api/generated/api'
+import { TagEntity } from '@api/generated/api'
 import { Card, Tag } from 'antd'
-import Meta from 'antd/lib/card/Meta'
-import Image from 'next/image'
 import React from 'react'
 import styles from './Project.module.scss'
 
@@ -11,9 +9,9 @@ interface ProjectProps {
   tags?: Array<TagEntity> | any,
 }
 
-const Project = (props : ProjectProps) => {
+const Project = (props: ProjectProps) => {
   const thumbnail = <div className={styles.projectCover}>
-    <img src={`${props.thumbnail}`} alt={props.title ?? ''}/>
+    <img src={`${props.thumbnail}`} alt={props.title ?? ''} />
   </div>
 
   return (
@@ -25,7 +23,15 @@ const Project = (props : ProjectProps) => {
       className={styles.project}
     >
       <div className={styles.projectTags}>
-        {props.tags?.map((tag : any, index : any) => (<Tag icon={<img className={styles.projectTagsIcon} src={tag.attributes?.icon?.data?.attributes?.url}/>} style={{margin: 0}} key={index} color={tag.attributes?.colour ?? 'default'}>{tag.attributes?.name}</Tag>))}
+        {props.tags?.map((tag: any, index: any) => (
+          <Tag icon={tag.attributes?.icon?.data?.attributes?.url && <img className={styles.projectTagsIcon}
+            src={tag.attributes?.icon?.data?.attributes?.url} />}
+            style={{ margin: 0 }}
+            key={index}
+            color={tag.attributes?.colour ?? 'default'}>
+            {tag.attributes?.name}
+          </Tag>
+        ))}
       </div>
     </Card>
   )

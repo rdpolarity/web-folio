@@ -1,14 +1,17 @@
 .project {
-  width: 240px;
+  width: 230px;
   &Cover {
     height: 200px;
-    padding: 4px;
+    border-top: 1px solid rgb(219, 219, 219);
+    border-bottom: 1px solid rgb(219, 219, 219);
     img {
       height: 100%;
       width: 100%;
       object-fit: cover;
     }
   }
+  
+  outline: 1px solid rgb(219, 219, 219);
 
   &Tags {
     display: flex;

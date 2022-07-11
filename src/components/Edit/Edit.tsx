@@ -6,7 +6,7 @@ import styles from './Edit.module.scss'
 const Edit = () => {
   return (
     <div className={styles.edit}>
-      <Button shape='circle' type='link' icon={<UserOutlined />} href={`${process.env.NEXT_PUBLIC_ENDPOINT}/admin`}/>
+      <Button shape='circle' type='link' icon={<UserOutlined />} target="_blank" href={`${process.env.NEXT_PUBLIC_ENDPOINT}/admin`}/>
     </div>
   )
 }
