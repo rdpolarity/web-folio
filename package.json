@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "env": "vercel env pull",
+    "pull:env": "vercel env pull",
     "generate:api": "graphql-codegen --config src/api/config.yaml -r dotenv/config",
-    "predev": "npm run generate:api",
-    "prebuild": "npm run generate:api"
+    "predev": "pnpm generate:api",
+    "prebuild": "pnpm generate:api"
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
