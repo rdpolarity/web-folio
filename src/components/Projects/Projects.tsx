@@ -68,7 +68,7 @@ const Projects = () => {
   return (
     <div>
       <div className={styles.alert}>
-        <Alert type='info' showIcon message="Click on a tag to filter projects containing the selected tag" />
+        <Alert type='info' style={{userSelect: 'none'}} showIcon message="Click on a tag to filter projects containing the selected tag" />
       </div>
       <div className={styles.filter}>
         <Select
