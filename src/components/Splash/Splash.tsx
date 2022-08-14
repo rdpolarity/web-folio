@@ -29,9 +29,9 @@ const Scene = observer(() => {
     "https://res.cloudinary.com/dxn4wbidw/raw/upload/v1660446921/grass_block_e83468ec5b.fbx?updated_at=2022-08-14T03:15:21.386Z"
   );
 
-  let grassTexture = useTexture(
-    "https://res.cloudinary.com/dxn4wbidw/image/upload/v1660447067/grass_block_6f19e5fead.jpg?updated_at=2022-08-14T03:17:48.954Z"
-  );
+  let grassTexture = useTexture({
+    map: "https://res.cloudinary.com/dxn4wbidw/image/upload/v1660447067/grass_block_6f19e5fead.jpg?updated_at=2022-08-14T03:17:48.954Z",
+  });
 
   const [meshIndex, setMeshIndex] = useState(0);
 
@@ -91,35 +91,29 @@ const Scene = observer(() => {
               <GradMat />
             </mesh>
           ) : null}
-          {meshIndex === 1 ? (
-            <>
-              <mesh position={[0.12, 1, 0]}>
-                <boxGeometry attach="geometry" args={[1, 1, 1]} />
-                <GradMat />
-              </mesh>
-              <DreiImage
-                url={"https://i.imgur.com/s1xzKqL.png"}
-                position={[0.1, 1, -0.52]}
-                rotation={[0, 180 - 0.95, 0]}
-                transparent
-              />
-            </>
-          ) : null}
-          {meshIndex === 2 ? (
-            <mesh position={[0.12, 1, 0]}>
-              <octahedronGeometry attach="geometry" args={[0.8, 0]} />
-              <GradMat />
-            </mesh>
-          ) : null}
-          {meshIndex === 3 ? (
-            <mesh
-              {...grassBlock.children[0]}
-              position={[0, 1, 0]}
-              scale={0.5}
-            >
-              <meshStandardMaterial map={grassTexture} attach="material" roughness={1} metalness={0} emissive={0} emissiveIntensity={10} />
-            </mesh>
-          ) : null}
+          <mesh position={[0.12, 1, 0]} visible={meshIndex === 1}>
+            <boxGeometry attach="geometry" args={[1, 1, 1]} />
+            <GradMat />
+          </mesh>
+          <DreiImage
+            url={"https://i.imgur.com/s1xzKqL.png"}
+            visible={meshIndex === 1}
+            position={[0.1, 1, -0.52]}
+            rotation={[0, 180 - 0.95, 0]}
+            transparent
+          />
+          <mesh position={[0.12, 1, 0]} visible={meshIndex === 2}>
+            <octahedronGeometry attach="geometry" args={[0.8, 0]} />
+            <GradMat />
+          </mesh>
+          <mesh
+            {...grassBlock.children[0]}
+            position={[0, 1, 0]}
+            visible={meshIndex === 3}
+            scale={0.5}
+          >
+            <meshStandardMaterial {...grassTexture} />
+          </mesh>
         </mesh>
       </Float>
       <Plane
