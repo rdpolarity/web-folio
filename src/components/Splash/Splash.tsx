@@ -1,45 +1,44 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Splash.module.scss";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
-  CameraShake,
-  ContactShadows,
   Float,
   GradientTexture,
-  Html,
-  MeshDistortMaterial,
-  MeshWobbleMaterial,
   OrbitControls,
   OrthographicCamera,
-  PerspectiveCamera,
+  Image as DreiImage,
   Plane,
-  Sky,
-  Sparkles,
-  SpotLight,
   Stage,
-  Text,
   useFBX,
+  useTexture,
 } from "@react-three/drei";
-import {
-  Euler,
-  Material,
-  MeshMatcapMaterial,
-  MeshStandardMaterial,
-  Vector2,
-  Vector3,
-} from "three";
-import splashMobile from "../../../public/splash-mobile.png";
-import Image from "next/image";
-import { LoginOutlined } from "@ant-design/icons";
+import { Vector2, Vector3 } from "three";
+import { globalStore, useGlobalStore } from "stores/GlobalStore";
+import { observer } from "mobx-react-lite";
 
-const Scene = () => {
+const Scene = observer(() => {
   const camera = useRef<THREE.PerspectiveCamera>();
   const mesh = useRef<THREE.Mesh>();
+  const store = useGlobalStore();
 
   let logo = useFBX(
     "https://res.cloudinary.com/dxn4wbidw/raw/upload/v1660362304/logo_8ae97d1953.fbx?updated_at=2022-08-13T03:45:04.317Z"
   );
+
+  let grassBlock = useFBX(
+    "https://res.cloudinary.com/dxn4wbidw/raw/upload/v1660446921/grass_block_e83468ec5b.fbx?updated_at=2022-08-14T03:15:21.386Z"
+  );
+
+  let grassTexture = useTexture(
+    "https://res.cloudinary.com/dxn4wbidw/image/upload/v1660447067/grass_block_6f19e5fead.jpg?updated_at=2022-08-14T03:17:48.954Z"
+  );
+
   const [meshIndex, setMeshIndex] = useState(0);
+
+  useEffect(() => {
+    if (globalStore.isMinecraft) setMeshIndex(3);
+    else setMeshIndex(0);
+  }, [store.isMinecraft]);
 
   const GradMat = () => (
     <meshStandardMaterial>
@@ -81,7 +80,7 @@ const Scene = () => {
         speed={3}
         onClick={incrementMesh}
       >
-        <mesh rotation={[0,-0.5,0]}>
+        <mesh rotation={[0, -0.5, 0]}>
           {meshIndex === 0 ? (
             <mesh
               {...logo.children[0]}
@@ -93,15 +92,32 @@ const Scene = () => {
             </mesh>
           ) : null}
           {meshIndex === 1 ? (
-            <mesh position={[0.12, 1, 0]}>
-              <boxGeometry attach="geometry" args={[1, 1, 1]} />
-              <GradMat />
-            </mesh>
+            <>
+              <mesh position={[0.12, 1, 0]}>
+                <boxGeometry attach="geometry" args={[1, 1, 1]} />
+                <GradMat />
+              </mesh>
+              <DreiImage
+                url={"https://i.imgur.com/s1xzKqL.png"}
+                position={[0.1, 1, -0.52]}
+                rotation={[0, 180 - 0.95, 0]}
+                transparent
+              />
+            </>
           ) : null}
           {meshIndex === 2 ? (
             <mesh position={[0.12, 1, 0]}>
               <octahedronGeometry attach="geometry" args={[0.8, 0]} />
               <GradMat />
+            </mesh>
+          ) : null}
+          {meshIndex === 3 ? (
+            <mesh
+              {...grassBlock.children[0]}
+              position={[0, 1, 0]}
+              scale={0.5}
+            >
+              <meshStandardMaterial map={grassTexture} attach="material" roughness={1} metalness={0} emissive={0} emissiveIntensity={10} />
             </mesh>
           ) : null}
         </mesh>
@@ -113,9 +129,9 @@ const Scene = () => {
       ></Plane>
     </Stage>
   );
-};
+});
 
-const Splash = () => {
+const Splash = observer(() => {
   return (
     <div className={styles.splash}>
       <div className={styles.splashImage}>
@@ -126,22 +142,12 @@ const Splash = () => {
 
       <div className={styles.splashText}>
         <h1>Aiden Mellor.</h1>
-        <h2>Software Engineer.</h2>
-        <h2>Designer.</h2>
-        <h2>Artist.</h2>
+        <h2 style={{ animationDelay: "0s" }}>Software Engineer.</h2>
+        <h2 style={{ animationDelay: "1s" }}>Designer.</h2>
+        <h2 style={{ animationDelay: "2s" }}>Artist.</h2>
       </div>
-
-      <div className={styles.splashImageMobile}>
-        <Image
-          src={"/splash-mobile.png"}
-          width={200}
-          height={200}
-          alt="Aiden Mellor"
-        />
-      </div>
-      {/* <Button size='large'>Resume</Button> */}
     </div>
   );
-};
+});
 
 export default Splash;
