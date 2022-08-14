@@ -15,7 +15,7 @@ const Tip = () => {
         />
         <p className={styles.tipTitleText}>TIP</p>
       </div>
-      <p className={styles.tipText}>There's two easter eggs on this website. Can you find them?</p>
+      <p className={styles.tipText}>There{`'`}s two easter eggs on this website. Can you find them?</p>
     </div>
   );
 };

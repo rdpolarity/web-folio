@@ -86,7 +86,7 @@ const Scene = observer(() => {
               {...logo.children[0]}
               position={[0.12, 0.4, 0]}
               scale={20}
-              ref={mesh}
+              ref={mesh as any}
             >
               <GradMat />
             </mesh>
