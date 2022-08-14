@@ -81,16 +81,15 @@ const Scene = observer(() => {
         onClick={incrementMesh}
       >
         <mesh rotation={[0, -0.5, 0]}>
-          {meshIndex === 0 ? (
-            <mesh
-              {...logo.children[0]}
-              position={[0.12, 0.4, 0]}
-              scale={20}
-              ref={mesh as any}
-            >
-              <GradMat />
-            </mesh>
-          ) : null}
+          <mesh
+            {...logo.children[0]}
+            position={[0.12, 0.4, 0]}
+            scale={20}
+            visible={meshIndex === 0}
+            ref={mesh as any}
+          >
+            <GradMat />
+          </mesh>
           <mesh position={[0.12, 1, 0]} visible={meshIndex === 1}>
             <boxGeometry attach="geometry" args={[1, 1, 1]} />
             <GradMat />
