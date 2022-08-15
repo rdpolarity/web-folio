@@ -71,7 +71,7 @@ const Scene = observer(() => {
       const rot = new Quaternion();
       camera.current.getWorldQuaternion(rot);
 
-      const yRot = rot.y.toFixed(2);
+      const yRot = Number(rot.y.toFixed(2));
       if (yRot > 0.5 && yRot < 1.0 && meshIndex == 1) store.spyroFound();
     }
   });
