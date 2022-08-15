@@ -75,3 +75,22 @@
     justify-content: center;
   }
 }
+
+.dot {
+  cursor: pointer;
+
+  &__toggled {
+    $color: rgb(21, 215, 21);
+    color: $color;
+    animation: glow alternate ease-in-out 1s infinite;
+    
+    @keyframes glow {
+      0% {
+        text-shadow: 0 0 0px $color;
+      }
+      100% {
+        text-shadow: 0 0 10px $color;
+      }
+    }
+  }
+}

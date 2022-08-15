@@ -12,7 +12,7 @@ import {
   useFBX,
   useTexture,
 } from "@react-three/drei";
-import { Vector2, Vector3 } from "three";
+import { Quaternion, Vector2, Vector3 } from "three";
 import { globalStore, useGlobalStore } from "stores/GlobalStore";
 import { observer } from "mobx-react-lite";
 
@@ -20,6 +20,7 @@ const Scene = observer(() => {
   const camera = useRef<THREE.PerspectiveCamera>();
   const mesh = useRef<THREE.Mesh>();
   const store = useGlobalStore();
+  const [spyroInView, setSpyroInView] = useState(false);
 
   let logo = useFBX(
     "https://res.cloudinary.com/dxn4wbidw/raw/upload/v1660362304/logo_8ae97d1953.fbx?updated_at=2022-08-13T03:45:04.317Z"
@@ -36,9 +37,13 @@ const Scene = observer(() => {
   const [meshIndex, setMeshIndex] = useState(0);
 
   useEffect(() => {
-    if (globalStore.isMinecraft) setMeshIndex(3);
+    if (store.isMinecraft) setMeshIndex(3);
     else setMeshIndex(0);
   }, [store.isMinecraft]);
+
+  useEffect(() => {
+    if (store.isDots) setMeshIndex(4);
+  }, [store.isDots]);
 
   const GradMat = () => (
     <meshStandardMaterial>
@@ -61,6 +66,13 @@ const Scene = observer(() => {
       const offset = new Vector3(0, 1, 0);
       const focus = new Vector3(0, 0.2, 0).add(offset);
       camera.current.lookAt(focus ?? 0, 0, 0);
+
+
+      const rot = new Quaternion();
+      camera.current.getWorldQuaternion(rot);
+
+      const yRot = rot.y.toFixed(2);
+      if (yRot > 0.5 && yRot < 1.0 && meshIndex == 1) store.spyroFound();
     }
   });
 
@@ -73,7 +85,7 @@ const Scene = observer(() => {
         maxPolarAngle={1.5}
       />
       <ambientLight intensity={0.5} />
-      <OrthographicCamera makeDefault zoom={150} ref={camera} />
+      <OrthographicCamera makeDefault zoom={150} ref={camera}/>
       <Float
         rotationIntensity={0}
         floatIntensity={1}
@@ -90,7 +102,7 @@ const Scene = observer(() => {
           >
             <GradMat />
           </mesh>
-          <mesh position={[0.12, 1, 0]} visible={meshIndex === 1}>
+          <mesh position={[0, 1, 0]} visible={meshIndex === 1}>
             <boxGeometry attach="geometry" args={[1, 1, 1]} />
             <GradMat />
           </mesh>
@@ -101,7 +113,7 @@ const Scene = observer(() => {
             rotation={[0, 180 - 0.95, 0]}
             transparent
           />
-          <mesh position={[0.12, 1, 0]} visible={meshIndex === 2}>
+          <mesh position={[0, 1, 0]} visible={meshIndex === 2}>
             <octahedronGeometry attach="geometry" args={[0.8, 0]} />
             <GradMat />
           </mesh>
@@ -113,6 +125,10 @@ const Scene = observer(() => {
           >
             <meshStandardMaterial {...grassTexture} />
           </mesh>
+          <mesh position={[0,1,0]} visible={meshIndex === 4}>
+            <sphereGeometry attach="geometry" args={[0.5, 32, 32]} />
+            <GradMat/>
+          </mesh>
         </mesh>
       </Float>
       <Plane
@@ -123,8 +139,34 @@ const Scene = observer(() => {
     </Stage>
   );
 });
-
 const Splash = observer(() => {
+  const [dots, setDots] = useState([false, false, false, false]);
+  const store = useGlobalStore();
+
+  useEffect(() => {
+    if (dots.every((d) => d)) {
+      setDots([false, false, false, false]);
+      store.setIsDots(true);
+    } else {
+      store.setIsDots(false);
+    }
+  }, [dots, store]);
+
+  const Dot = ({ index }: { index: number }) => {
+    
+    const onToggleHandler = () => {
+      const newDots = [...dots];
+      newDots[index] = !newDots[index];
+      setDots(newDots);
+    }
+
+    return (
+      <span className={`${styles.dot} ${dots[index] ? styles.dot__toggled : ''}`} onClick={onToggleHandler}>
+        .
+      </span>
+    );
+  };
+
   return (
     <div className={styles.splash}>
       <div className={styles.splashImage}>
@@ -134,10 +176,22 @@ const Splash = observer(() => {
       </div>
 
       <div className={styles.splashText}>
-        <h1>Aiden Mellor.</h1>
-        <h2 style={{ animationDelay: "0s" }}>Software Engineer.</h2>
-        <h2 style={{ animationDelay: "1s" }}>Designer.</h2>
-        <h2 style={{ animationDelay: "2s" }}>Artist.</h2>
+        <h1>
+          Aiden Mellor
+          <Dot index={0} />
+        </h1>
+        <h2 style={{ animationDelay: "0s" }}>
+          Software Engineer
+          <Dot index={1} />
+        </h2>
+        <h2 style={{ animationDelay: "1s" }}>
+          Designer
+          <Dot index={2} />
+        </h2>
+        <h2 style={{ animationDelay: "2s" }}>
+          Artist
+          <Dot index={3} />
+        </h2>
       </div>
     </div>
   );

@@ -1,17 +1,38 @@
-import { makeAutoObservable } from "mobx";
+import { computed, makeAutoObservable } from "mobx";
 import React from "react";
 
 class GlobalStore {
 
   isMinecraft = false;
+  isMinecraftFound = false;
+
+  isDots = false;
+  isDotsFound = false;
+
+  isSpyroFound = false;
+
+  @computed
+  getEasterEggs = () => [this.isMinecraftFound, this.isDotsFound, this.isSpyroFound];
+
+  @computed
+  getEasterEggCount = () => this.getEasterEggs().filter(e => e).length;
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  setIsDots(isDots: boolean) {
+    if (isDots) this.isDotsFound = true;
+    this.isDots = isDots;
+  }
+
   setIsMinecraft(isMinecraft: boolean) {
-    console.log("setIsMinecraft", isMinecraft);
+    if (isMinecraft) this.isMinecraftFound = true;
     this.isMinecraft = isMinecraft;
+  }
+
+  spyroFound() {
+    this.isSpyroFound = true;
   }
 }
 
