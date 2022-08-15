@@ -3,6 +3,7 @@ import { TagEntity } from "@api/generated/api";
 import { Card, Tag } from "antd";
 import React from "react";
 import styles from "./Project.module.scss";
+import Tilt from 'react-parallax-tilt';
 
 interface ProjectProps {
   title?: string | null;
@@ -12,6 +13,7 @@ interface ProjectProps {
 
 const Project = (props: ProjectProps) => {
   return (
+    <Tilt glareEnable tiltMaxAngleX={3} tiltMaxAngleY={3} glareMaxOpacity={0.5}>
     <div className={styles.project}>
       <h4 className={styles.projectTitle}>{props.title}</h4>
       <div className={styles.projectThumbnail}>
@@ -38,6 +40,7 @@ const Project = (props: ProjectProps) => {
         </div>
       </div>
     </div>
+    </Tilt>
   );
 };
 
