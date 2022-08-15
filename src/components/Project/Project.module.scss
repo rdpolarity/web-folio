@@ -4,13 +4,13 @@
   width: 230px;
   border-radius: 5px;
   padding-bottom: 0;
-  transition: all 0.15s ease-in-out;
+  transition: box-shadow opacity 0.15s ease-in-out;
   cursor: pointer;
   overflow: hidden;
 
   &:hover {
     transform: scale3D(1.02);
-    border-color: rgb(128, 128, 128) !important;
+    border-color: rgb(29, 29, 29) !important;
     box-shadow: 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12),
       0 7px 8px -4px rgba(0, 0, 0, 0.2);
     border-width: 2px;

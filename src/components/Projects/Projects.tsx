@@ -7,12 +7,14 @@ import React from "react";
 import styles from "./Projects.module.scss";
 import api from "@api/api";
 import { SearchOutlined } from "@ant-design/icons";
+import github from '../../../public/github.svg'
 import {
   ProjectEntity,
 } from "@api/generated/api";
 import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
+import Button from "@components/Button/Button";
 
 const Projects = () => {
   const { isLoading, isError, error } = api.useProjectsQuery(
@@ -97,6 +99,8 @@ const Projects = () => {
     <div>
       <div className={styles.alert}>
         <Tip />
+        <Button>CV</Button>
+        <Button image={github}/>
       </div>
       <div className={styles.filter}>
         <Select
