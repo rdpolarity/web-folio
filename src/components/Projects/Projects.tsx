@@ -102,6 +102,7 @@ const Projects = () => {
         <Select
           mode="multiple"
           showSearch
+          placeholder="Search for projects with tags"
           showArrow
           style={{ width: "100%" }}
           bordered={false}
