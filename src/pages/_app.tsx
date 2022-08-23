@@ -8,7 +8,7 @@ import ReactGA from 'react-ga4';
 
 const queryClient = new QueryClient();
 ReactGA.initialize('G-WTM930C6WK');
-if (typeof document !== 'undefined') ReactGA.send({ hitType: 'pageView', page: window.location.pathname})
+if (typeof document !== 'undefined') ReactGA.send({ hitType: 'pageview', page: window.location.pathname})
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
