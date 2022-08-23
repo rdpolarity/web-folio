@@ -1,5 +1,5 @@
 // import { analytics } from "@pages/_app";
-import { autorun, computed, makeAutoObservable } from "mobx";
+import { computed, makeAutoObservable } from "mobx";
 import React from "react";
 import { event } from "nextjs-google-analytics";
 
@@ -29,8 +29,8 @@ class GlobalStore {
   setIsDots(isDots: boolean) {
     if (isDots) {
       this.isDotsFound = true;
-      event("easterEggs", {
-        action: "Dots secret Found",
+      event("easter_eggs", {
+        label: "Dots secret Found",
         count: this.getEasterEggCount(),
       });
     }
@@ -41,8 +41,8 @@ class GlobalStore {
     if (isMinecraft) {
       this.isMinecraftFound = true;
 
-      event("easterEggs", {
-        action: "Minecraft secret found",
+      event("easter_eggs", {
+        label: "Minecraft secret found",
         count: this.getEasterEggCount(),
       });
     }
@@ -51,8 +51,8 @@ class GlobalStore {
 
   spyroFound() {
     this.isSpyroFound = true;
-    event("easterEggs", {
-      action: "Spyro secret found",
+    event("easter_eggs", {
+      label: "Spyro secret found",
       count: this.getEasterEggCount(),
     });
   }
