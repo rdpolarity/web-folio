@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <GoogleAnalytics trackPageViews gaMeasurementId="G-F9MQRWECTK"/>
+      <GoogleAnalytics trackPageViews gaMeasurementId="G-GQTTZ122WB"/>
       <GlobalStoreProvider value={globalStore}>
         <AppLayout>
           <Component {...pageProps} />
