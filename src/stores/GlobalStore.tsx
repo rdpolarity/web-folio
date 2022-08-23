@@ -1,5 +1,5 @@
+import { analytics } from "@pages/_app";
 import { autorun, computed, makeAutoObservable } from "mobx";
-import ReactGA from "react-ga4";
 import React from "react";
 
 class GlobalStore {
@@ -28,10 +28,9 @@ class GlobalStore {
   setIsDots(isDots: boolean) {
     if (isDots) {
       this.isDotsFound = true;
-      ReactGA.event({
-        category: "Easter Eggs",
+      analytics.track("easterEggs", {
         action: "Dots secret Found",
-        value: this.getEasterEggCount(),
+        count: this.getEasterEggCount(),
       });
     }
     this.isDots = isDots;
@@ -41,10 +40,9 @@ class GlobalStore {
     if (isMinecraft) {
       this.isMinecraftFound = true;
 
-      ReactGA.event({
-        category: "Easter Eggs",
+      analytics.track("easterEggs", {
         action: "Minecraft secret found",
-        value: this.getEasterEggCount(),
+        count: this.getEasterEggCount(),
       });
     }
     this.isMinecraft = isMinecraft;
@@ -52,10 +50,9 @@ class GlobalStore {
 
   spyroFound() {
     this.isSpyroFound = true;
-    ReactGA.event({
-      category: "Easter Eggs",
+    analytics.track("easterEggs", {
       action: "Spyro secret found",
-      value: this.getEasterEggCount(),
+      count: this.getEasterEggCount(),
     });
   }
 }

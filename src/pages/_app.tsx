@@ -4,11 +4,21 @@ import AppLayout from "@components/Layout";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { globalStore, GlobalStoreProvider } from "stores/GlobalStore";
-import ReactGA from 'react-ga4';
+import Analytics from 'analytics'
+import googleAnalytics from '@analytics/google-analytics'
+
+export const analytics = Analytics({
+  app: 'aydie.me',
+  plugins: [
+    googleAnalytics({
+      measurementIds: ['G-WTM930C6WK']
+    })
+  ]
+})
+
+analytics.page();
 
 const queryClient = new QueryClient();
-ReactGA.initialize('G-WTM930C6WK');
-if (typeof document !== 'undefined') ReactGA.send({ hitType: 'pageview', page: window.location.pathname})
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

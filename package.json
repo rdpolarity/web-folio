@@ -13,6 +13,7 @@
     "prebuild": "pnpm generate:api"
   },
   "dependencies": {
+    "@analytics/google-analytics": "^1.0.3",
     "@ant-design/icons": "^4.7.0",
     "@graphql-codegen/cli": "^2.8.0",
     "@graphql-codegen/typescript": "^2.7.1",
@@ -22,6 +23,7 @@
     "@react-three/fiber": "^8.3.1",
     "@types/antd": "^1.0.0",
     "@types/three": "^0.143.0",
+    "analytics": "^0.8.1",
     "antd": "^4.21.5",
     "axios": "^0.27.2",
     "file-loader": "^6.2.0",
@@ -31,7 +33,6 @@
     "party-js": "^2.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-ga4": "^1.4.1",
     "react-parallax-tilt": "^1.7.52",
     "react-query": "^3.39.1",
     "sass": "^1.53.0",
