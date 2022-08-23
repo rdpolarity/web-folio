@@ -15,8 +15,11 @@ import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
 import Button from "@components/Button/Button";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Projects = () => {
+  const router = useRouter();
   const { isLoading, isError, error } = api.useProjectsQuery(
     {},
     {
@@ -99,8 +102,8 @@ const Projects = () => {
     <div>
       <div className={styles.alert}>
         <Tip />
-        <Button>CV</Button>
-        <Button image={github}/>
+          <Button onClick={() => router.push('/cv')}>CV</Button>
+          <Button onClick={() => router.push('https://github.com/rdpolarity')} image={github}/>
       </div>
       <div className={styles.filter}>
         <Select
