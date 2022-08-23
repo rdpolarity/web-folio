@@ -4,8 +4,8 @@ import AppLayout from "@components/Layout";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { globalStore, GlobalStoreProvider } from "stores/GlobalStore";
-import Analytics from 'analytics'
-import googleAnalytics from '@analytics/google-analytics'
+import Analytics from 'analytics';
+import googleAnalytics from '@analytics/google-analytics';
 
 export const analytics = Analytics({
   app: 'aydie.me',
