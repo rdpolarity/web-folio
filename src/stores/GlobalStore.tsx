@@ -1,4 +1,4 @@
-import { analytics } from "@pages/_app";
+// import { analytics } from "@pages/_app";
 import { autorun, computed, makeAutoObservable } from "mobx";
 import React from "react";
 
@@ -28,10 +28,10 @@ class GlobalStore {
   setIsDots(isDots: boolean) {
     if (isDots) {
       this.isDotsFound = true;
-      analytics.track("easterEggs", {
-        action: "Dots secret Found",
-        count: this.getEasterEggCount(),
-      });
+      // analytics.track("easterEggs", {
+      //   action: "Dots secret Found",
+      //   count: this.getEasterEggCount(),
+      // });
     }
     this.isDots = isDots;
   }
@@ -40,20 +40,20 @@ class GlobalStore {
     if (isMinecraft) {
       this.isMinecraftFound = true;
 
-      analytics.track("easterEggs", {
-        action: "Minecraft secret found",
-        count: this.getEasterEggCount(),
-      });
+      // analytics.track("easterEggs", {
+      //   action: "Minecraft secret found",
+      //   count: this.getEasterEggCount(),
+      // });
     }
     this.isMinecraft = isMinecraft;
   }
 
   spyroFound() {
     this.isSpyroFound = true;
-    analytics.track("easterEggs", {
-      action: "Spyro secret found",
-      count: this.getEasterEggCount(),
-    });
+    // analytics.track("easterEggs", {
+    //   action: "Spyro secret found",
+    //   count: this.getEasterEggCount(),
+    // });
   }
 }
 
