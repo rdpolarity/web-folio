@@ -18,12 +18,14 @@
     "@graphql-codegen/typescript": "^2.7.1",
     "@graphql-codegen/typescript-operations": "^2.5.1",
     "@graphql-codegen/typescript-react-query": "^3.6.1",
+    "@nextui-org/react": "^1.0.0-beta.10",
     "@react-three/drei": "^9.21.0",
     "@react-three/fiber": "^8.3.1",
     "@types/antd": "^1.0.0",
     "@types/three": "^0.143.0",
     "antd": "^4.21.5",
     "axios": "^0.27.2",
+    "canvas": "^2.10.2",
     "file-loader": "^6.2.0",
     "firebase": "^9.9.3",
     "mobx": "^6.6.1",
@@ -39,6 +41,7 @@
     "three": "^0.143.0"
   },
   "devDependencies": {
+    "@types/extract-colors": "^1.1.0",
     "@types/graphql": "^14.5.0",
     "@types/node": "18.0.3",
     "@types/react": "18.0.15",
