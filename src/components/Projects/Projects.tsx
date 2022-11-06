@@ -1,13 +1,10 @@
-import {
-  Card,
-  Select,
-} from "antd";
+import { Card, Select } from "antd";
 import Project from "@components/Project/Project";
 import React from "react";
 import styles from "./Projects.module.scss";
 import api from "@api/api";
 import { SearchOutlined } from "@ant-design/icons";
-import github from '../../../public/github.svg'
+import github from "../../../public/github.svg";
 import {
   ProjectEntity,
 } from "@api/generated/api";
@@ -15,19 +12,12 @@ import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
 import Button from "@components/Button/Button";
-import Link from "next/link";
 import { useRouter } from "next/router";
+import { ProjectsProps } from "@pages/index";
 
-const Projects = () => {
+
+const Projects = ({ projects }: ProjectsProps) => {
   const router = useRouter();
-  const { isLoading, isError, error } = api.useProjectsQuery(
-    {},
-    {
-      onSuccess(data) {
-        setProjectList(data?.projects?.data as ProjectEntity[]);
-      },
-    }
-  );
   const {
     data: tags,
     isLoading: isLoadingTags,
@@ -36,7 +26,7 @@ const Projects = () => {
   } = api.useTagsQuery();
 
   const [filter, setFilter] = React.useState<string[] | undefined>(undefined);
-  const [projectList, setProjectList] = React.useState<ProjectEntity[]>();
+  const [projectList, setProjectList] = React.useState<ProjectEntity[]>(projects);
   const [filteredProjectList, setFilteredProjectList] =
     React.useState<ProjectEntity[]>();
 
@@ -59,7 +49,7 @@ const Projects = () => {
     setFilteredProjectList(filteredProjects);
   }, [filter, projectList]);
 
-  if (isError) return <div>{error as any}</div>;
+  // if (isError) return <div>{error as any}</div>;
 
   const loadingCard = (
     <Card style={{ width: 230, height: 300 }} loading>
@@ -80,7 +70,7 @@ const Projects = () => {
     </>
   );
 
-  const projects = filteredProjectList?.map((project, index) => {
+  const filteredProjects = filteredProjectList?.map((project, index) => {
     const attributes = project.attributes;
     const tags = attributes?.tags?.data;
     return (
@@ -102,8 +92,11 @@ const Projects = () => {
     <div>
       <div className={styles.alert}>
         <Tip />
-          <Button onClick={() => router.push('/cv')}>CV</Button>
-          <Button onClick={() => router.push('https://github.com/rdpolarity')} image={github}/>
+        <Button onClick={() => router.push("/cv")}>CV</Button>
+        <Button
+          onClick={() => router.push("https://github.com/rdpolarity")}
+          image={github}
+        />
       </div>
       <div className={styles.filter}>
         <Select
@@ -124,9 +117,7 @@ const Projects = () => {
           ))}
         </Select>
       </div>
-      <div className={styles.projects}>
-        {!isLoading ? projects : loadingProjects}
-      </div>
+      <div className={styles.projects}>{filteredProjects}</div>
     </div>
   );
 };

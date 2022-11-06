@@ -3,8 +3,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Projects from '@components/Projects/Projects'
 import Splash from '@components/Splash/Splash'
+import { ProjectsProps } from '@pages/index'
 
-const Home: NextPage = () => {
+const Home = ({projects} : ProjectsProps) => {
   return (
     <div>
       <Head>
@@ -14,7 +15,7 @@ const Home: NextPage = () => {
       </Head>
       <Container>
         <Splash/>
-        <Projects/>
+        <Projects projects={projects}/>
       </Container>
     </div>
   )

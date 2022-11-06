@@ -9,6 +9,7 @@ generates:
       - typescript-react-query
     config:
       fetcher:
+    
         endpoint: ${NEXT_PUBLIC_ENDPOINT}/graphql
         fetchParams:
           headers:
