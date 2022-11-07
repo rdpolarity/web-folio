@@ -6,6 +6,7 @@ export interface MaxProps {
   width?: number
   className?: string
   gutter?: number
+  style?: React.CSSProperties
 }
 
 /**
@@ -15,9 +16,9 @@ export interface MaxProps {
  * @param gutter left and right margin
  * @returns 
  */
- const Max = ({ children, width = 1000, className, gutter }: MaxProps) => {
+ const Max = ({ children, width = 1000, className, gutter, style }: MaxProps) => {
   return <div className={styles.max} style={{ margin: `0 ${gutter}px` }}>
-    <div style={{ flexBasis: width }} className={className}>
+    <div style={{ ...style, flexBasis: width }} className={className}>
       {children}
     </div>
   </div>;

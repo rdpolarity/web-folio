@@ -1,0 +1,41 @@
+query CV {
+  cv {
+    data {
+			attributes {
+        Title,
+        Subtitle,
+        Location,
+        Number,
+        Email,
+        LinkedIn,
+        Website,
+        Content {
+          __typename,
+          ... on ComponentComponentsTitle {
+            text
+          }
+          ... on ComponentComponentsSection {
+            Title,
+            Subtitle
+            Description,
+            Progress,
+            Tags {
+              data {
+                attributes {
+                  name
+                }
+              }
+            }
+            Icon {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+          }
+        }
+      }      
+    }
+  }
+}

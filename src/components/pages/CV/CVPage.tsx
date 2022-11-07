@@ -1,9 +1,18 @@
-import React from 'react'
+import { CvQuery } from "@api/generated/api";
+import Container from "@components/Container/Container";
+import React from "react";
+import Header from "./Header";
+import SectionMapper from "./SectionMapper";
+import styles from "./styles.module.scss";
 
-const CVPage = () => {
+export default function CVPage({ cv }: { cv: CvQuery }) {
   return (
-    <div>CVPage</div>
-  )
+    <Container style={{ padding: 50 }}>
+      <Header />
+      <div className={styles.line}>
+        <SectionMapper cv={cv} />
+        <div style={{ height: 1000 }}></div>
+      </div>
+    </Container>
+  );
 }
-
-export default CVPage
