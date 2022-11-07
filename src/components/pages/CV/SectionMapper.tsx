@@ -9,13 +9,14 @@ export default function SectionMapper({ cv }: { cv: CvQuery }) {
     switch (section?.__typename) {
       case "ComponentComponentsTitle":
         return <Title key={index}>{section?.text}</Title>;
-        break;
       case "ComponentComponentsSection":
+        const tags = section?.Tags?.data.map((tag) => tag?.attributes?.name) as any;
+        console.log(tags);
         return (
           <Section key={index}
             title={section?.Title}
             subtitle={section?.Subtitle}
-            tags={section?.Tags?.data.map((tag) => tag?.attributes?.name) as any}
+            tags={tags}
             icon={section?.Icon?.data?.attributes?.url}
             progress={section?.Progress}
           >

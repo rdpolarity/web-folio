@@ -15,36 +15,49 @@ interface SectionProps {
   color?: string | null;
 }
 
-const Section = ({ children, icon, title, subtitle, tags, progress }: SectionProps) => (
-  <div>
-    <div className={styles.section}>
-      <Tab width={7} height={30} />
-      <div
-        className={styles.sectionIcon}
-        style={{
-          backgroundImage: `url(${icon})`,
-          backgroundSize: "contain",
-        }}
-      />
-      <div className={styles.sectionContent}>
-        <Text h2 css={{ m: 0 }}>
-          {title}
-        </Text>
-        <Text h3 css={{ m: 0, mt: -10 }} color="grey">
-          {subtitle}
-        </Text>
-        {progress || progress !== 0 && <Progress color="primary" value={progress ?? 0} />}
-        {children}
-        <div className={styles.sectionContentTags}>
-          {tags?.map((tag: string) => (
-            <Badge key={tag} color="primary" disableOutline>
-              {tag}
-            </Badge>
-          ))}
+const Section = ({
+  children,
+  icon,
+  title,
+  subtitle,
+  tags,
+  progress,
+}: SectionProps) => {
+  const renderedTags = tags?.map((tag: string) => (
+    <Badge key={tag} color="primary" disableOutline>
+      {tag}
+    </Badge>
+  ));
+  return (
+    <div>
+      <div className={styles.section}>
+        <Tab width={7} height={30} />
+        <div
+          className={styles.sectionIcon}
+          style={{
+            backgroundImage: `url(${icon})`,
+            backgroundSize: "contain",
+          }}
+        />
+        <div className={styles.sectionContent}>
+          <Text h2 css={{ m: 0 }}>
+            {title}
+          </Text>
+          <Text h3 css={{ m: 0, mt: -10 }} color="grey">
+            {subtitle}
+          </Text>
+          {progress ||
+            (progress !== 0 && (
+              <Progress color="primary" value={progress ?? 0} />
+            ))}
+          {children}
+          <div className={styles.sectionContentTags}>
+            {tags && renderedTags}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
-export default Section
+export default Section;

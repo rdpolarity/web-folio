@@ -8,7 +8,7 @@ import styles from "./styles.module.scss";
 export default function CVPage({ cv }: { cv: CvQuery }) {
   return (
     <Container style={{ padding: 50 }}>
-      <Header />
+      <Header cv={cv}/>
       <div className={styles.line}>
         <SectionMapper cv={cv} />
         <div style={{ height: 1000 }}></div>
