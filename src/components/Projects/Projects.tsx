@@ -79,6 +79,8 @@ const Projects = ({ projects }: ProjectsProps) => {
         title={attributes?.name}
         tags={tags}
         thumbnail={attributes?.thumbnail?.data?.attributes?.url}
+        github={attributes?.github}
+        website={attributes?.link}
       />
     );
   });

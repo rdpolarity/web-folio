@@ -5,7 +5,6 @@ import Title from "./Title";
 import styles from "./styles.module.scss";
 
 export default function SectionMapper({ cv }: { cv: CvQuery }) {
-  console.log(cv);
   const content = cv.cv?.data?.attributes?.Content?.map((section, index) => {
     switch (section?.__typename) {
       case "ComponentComponentsTitle":
@@ -14,7 +13,6 @@ export default function SectionMapper({ cv }: { cv: CvQuery }) {
         const tags = section?.Tags?.data.map(
           (tag) => tag?.attributes?.name
         ) as any;
-        console.log(tags);
         return (
           <Section
             key={index}

@@ -3,13 +3,16 @@ import { TagEntity } from "@api/generated/api";
 import React, { useState } from "react";
 import styles from "./Project.module.scss";
 import Tilt from "react-parallax-tilt";
-import { Badge, Card, Modal, Text, useModal } from "@nextui-org/react";
-import Image from "next/image";
+import { Badge, Card, Modal, Text, Button } from "@nextui-org/react";
+import { GithubFilled, GlobalOutlined } from "@ant-design/icons";
+import Link from "next/link";
 
 interface ProjectProps {
   title?: string | null;
   thumbnail?: string;
   tags?: Array<TagEntity> | any;
+  github?: string;
+  website?: string;
 }
 
 const Project = (props: ProjectProps) => {
@@ -36,11 +39,38 @@ const Project = (props: ProjectProps) => {
 
   return (
     <>
-      <Modal closeButton open={visible} onClose={() => setVisible(false)}>
-        <Modal.Header>
-          <Text size={25} weight="bold">
+      <Modal open={visible} onClose={() => setVisible(false)}>
+        <Modal.Header
+          css={{
+            gap: 10,
+            flexDirection: "column",
+          }}
+        >
+          <Text size={25} weight="bold" css={{ m: 0 }}>
             {props.title}
           </Text>
+          <div style={{ display: "flex", gap: 10 }}>
+            {props.github && (
+              <Link href={props.github ?? ""} target="_blank">
+                <Button
+                  icon={<GithubFilled />}
+                  ghost
+                  color="gradient"
+                  auto
+                  animated
+                >
+                  Github
+                </Button>
+              </Link>
+            )}
+            {props.website && (
+              <Link href={props.website ?? ""} target="_blank">
+                <Button icon={<GlobalOutlined />} ghost color="primary" auto>
+                  Website
+                </Button>
+              </Link>
+            )}
+          </div>
         </Modal.Header>
         <Modal.Body css={{ p: 0 }}>
           <img src={props.thumbnail ?? ""} alt="modal image" />
