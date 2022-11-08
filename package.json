@@ -30,7 +30,7 @@
     "firebase": "^9.9.3",
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
-    "next": "^13.0.2",
+    "next": "^12.2.1",
     "nextjs-google-analytics": "^2.1.0",
     "party-js": "^2.2.0",
     "react": "^18.2.0",

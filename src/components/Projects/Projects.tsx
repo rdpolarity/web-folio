@@ -100,6 +100,7 @@ const Projects = ({ projects }: ProjectsProps) => {
             </Button>
           </Link>
           <Link href="https://github.com/rdpolarity" target="_blank">
+            {/* @ts-ignore */}
             <Button auto icon={<GithubFilled />} bordered color="#111">
               Github
             </Button>
