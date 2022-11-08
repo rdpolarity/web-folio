@@ -4,6 +4,8 @@ query Projects {
       id
       attributes {
 				name
+        github
+        link
 				tags {
           data {
             attributes {

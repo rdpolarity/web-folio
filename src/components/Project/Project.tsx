@@ -6,18 +6,18 @@ import Tilt from "react-parallax-tilt";
 import { Badge, Card, Modal, Text, Button } from "@nextui-org/react";
 import { GithubFilled, GlobalOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { Maybe } from "graphql/jsutils/Maybe";
 
 interface ProjectProps {
   title?: string | null;
   thumbnail?: string;
   tags?: Array<TagEntity> | any;
-  github?: string;
-  website?: string;
+  github?: Maybe<string>;
+  website?: Maybe<string>;
 }
 
 const Project = (props: ProjectProps) => {
   const [visible, setVisible] = useState(false);
-
   const badges = props.tags?.map((tag: any, index: any) => (
     <Badge
       enableShadow
