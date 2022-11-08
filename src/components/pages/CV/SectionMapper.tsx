@@ -2,6 +2,7 @@ import { CvQuery } from "@api/generated/api";
 import React from "react";
 import Section from "./Section";
 import Title from "./Title";
+import styles from "./styles.module.scss";
 
 export default function SectionMapper({ cv }: { cv: CvQuery }) {
   console.log(cv);
@@ -10,10 +11,13 @@ export default function SectionMapper({ cv }: { cv: CvQuery }) {
       case "ComponentComponentsTitle":
         return <Title key={index}>{section?.text}</Title>;
       case "ComponentComponentsSection":
-        const tags = section?.Tags?.data.map((tag) => tag?.attributes?.name) as any;
+        const tags = section?.Tags?.data.map(
+          (tag) => tag?.attributes?.name
+        ) as any;
         console.log(tags);
         return (
-          <Section key={index}
+          <Section
+            key={index}
             title={section?.Title}
             subtitle={section?.Subtitle}
             tags={tags}
@@ -28,5 +32,5 @@ export default function SectionMapper({ cv }: { cv: CvQuery }) {
         break;
     }
   });
-  return <>{content}</>;
+  return <div className={styles.sectionContainer}>{content}</div>;
 }

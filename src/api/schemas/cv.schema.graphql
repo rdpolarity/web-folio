@@ -1,3 +1,4 @@
+# Write your query or mutation here
 query CV {
   cv {
     data {
@@ -9,8 +10,15 @@ query CV {
         Email,
         LinkedIn,
         Website,
+        Profile {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
         Content {
-          __typename,
+          __typename
           ... on ComponentComponentsTitle {
             text
           }
