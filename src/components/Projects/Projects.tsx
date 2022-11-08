@@ -3,18 +3,16 @@ import Project from "@components/Project/Project";
 import React from "react";
 import styles from "./Projects.module.scss";
 import api from "@api/api";
-import { SearchOutlined } from "@ant-design/icons";
+import { FileFilled, GithubFilled, SearchOutlined } from "@ant-design/icons";
 import github from "../../../public/github.svg";
-import {
-  ProjectEntity,
-} from "@api/generated/api";
+import { ProjectEntity } from "@api/generated/api";
 import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
-import Button from "@components/Button/Button";
 import { useRouter } from "next/router";
 import { ProjectsProps } from "@pages/index";
-
+import { Button, Container, Grid } from "@nextui-org/react";
+import Link from "next/link";
 
 const Projects = ({ projects }: ProjectsProps) => {
   const router = useRouter();
@@ -26,7 +24,8 @@ const Projects = ({ projects }: ProjectsProps) => {
   } = api.useTagsQuery();
 
   const [filter, setFilter] = React.useState<string[] | undefined>(undefined);
-  const [projectList, setProjectList] = React.useState<ProjectEntity[]>(projects);
+  const [projectList, setProjectList] =
+    React.useState<ProjectEntity[]>(projects);
   const [filteredProjectList, setFilteredProjectList] =
     React.useState<ProjectEntity[]>();
 
@@ -94,11 +93,18 @@ const Projects = ({ projects }: ProjectsProps) => {
     <div>
       <div className={styles.alert}>
         <Tip />
-        <Button onClick={() => router.push("/cv")}>CV</Button>
-        <Button
-          onClick={() => router.push("https://github.com/rdpolarity")}
-          image={github}
-        />
+        <div style={{ display: "flex", gap: 10 }}>
+          <Link href="/cv">
+            <Button auto color="gradient" animated icon={<FileFilled />}>
+              CV
+            </Button>
+          </Link>
+          <Link href="https://github.com/rdpolarity" target="_blank">
+            <Button auto icon={<GithubFilled />} bordered color="#111">
+              Github
+            </Button>
+          </Link>
+        </div>
       </div>
       <div className={styles.filter}>
         <Select
