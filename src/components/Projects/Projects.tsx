@@ -4,14 +4,13 @@ import React from "react";
 import styles from "./Projects.module.scss";
 import api from "@api/api";
 import { FileFilled, GithubFilled, SearchOutlined } from "@ant-design/icons";
-import github from "../../../public/github.svg";
 import { ProjectEntity } from "@api/generated/api";
 import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
 import { useRouter } from "next/router";
 import { ProjectsProps } from "@pages/index";
-import { Button, Container, Grid } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import Link from "next/link";
 
 const Projects = ({ projects }: ProjectsProps) => {
@@ -94,17 +93,21 @@ const Projects = ({ projects }: ProjectsProps) => {
       <div className={styles.alert}>
         <Tip />
         <div style={{ display: "flex", gap: 10 }}>
-          <Link href="/cv">
-            <Button auto color="gradient" animated icon={<FileFilled />}>
-              CV
-            </Button>
-          </Link>
-          <Link href="https://github.com/rdpolarity" target="_blank">
+          <Button
+            auto
+            color="gradient"
+            onClick={() => router.push("/cv")}
+            animated
+            icon={<FileFilled />}
+          >
+            CV
+          </Button>
+          <a rel="noreferrer" target="_blank" href="https://github.com/rdpolarity">
             {/* @ts-ignore */}
             <Button auto icon={<GithubFilled />} bordered color="#111">
               Github
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
       <div className={styles.filter}>
