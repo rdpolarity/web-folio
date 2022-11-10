@@ -4,9 +4,10 @@ import styles from "./styles.module.scss";
 import Tab from "./Tab";
 import { Badge, Progress, Text } from "@nextui-org/react";
 import { ReactNode } from "react";
+import ReactMarkdown from "react-markdown";
 
 interface SectionProps {
-  children: ReactNode;
+  children: any;
   icon?: string | null;
   title?: string | null;
   subtitle?: string | null;
@@ -50,7 +51,9 @@ const Section = ({
             (progress !== 0 && (
               <Progress color="primary" value={progress ?? 0} />
             ))}
-          {children}
+          <ReactMarkdown>
+            {children}
+          </ReactMarkdown>
           <div className={styles.sectionContentTags}>
             {tags && renderedTags}
           </div>
