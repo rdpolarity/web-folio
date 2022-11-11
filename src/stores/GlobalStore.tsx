@@ -1,7 +1,8 @@
 // import { analytics } from "@pages/_app";
-import { computed, makeAutoObservable } from "mobx";
+import { autorun, computed, makeAutoObservable } from "mobx";
 import React from "react";
 import { event } from "nextjs-google-analytics";
+import LogRocket from "logrocket";
 
 class GlobalStore {
   isMinecraft = false;
@@ -24,37 +25,26 @@ class GlobalStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    autorun(() => {
+      if (this.isMinecraft) LogRocket.track("Minecraft secret found");
+      if (this.isDots) LogRocket.track("Dots secret found");
+      if (this.isSpyroFound) LogRocket.track("Spyro secret found");
+    });
   }
 
   setIsDots(isDots: boolean) {
-    if (isDots) {
-      this.isDotsFound = true;
-      event("easter_eggs", {
-        label: "Dots secret Found",
-        count: this.getEasterEggCount(),
-      });
-    }
+    if (isDots) this.isDotsFound = true;
     this.isDots = isDots;
   }
 
   setIsMinecraft(isMinecraft: boolean) {
-    if (isMinecraft) {
-      this.isMinecraftFound = true;
-
-      event("easter_eggs", {
-        label: "Minecraft secret found",
-        count: this.getEasterEggCount(),
-      });
-    }
+    if (isMinecraft) this.isMinecraftFound = true;
     this.isMinecraft = isMinecraft;
   }
 
   spyroFound() {
     this.isSpyroFound = true;
-    event("easter_eggs", {
-      label: "Spyro secret found",
-      count: this.getEasterEggCount(),
-    });
   }
 }
 
