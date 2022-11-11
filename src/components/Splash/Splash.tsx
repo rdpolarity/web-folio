@@ -185,7 +185,6 @@ const Splash = observer(() => {
         <Canvas style={{ cursor: "pointer" }}>
           <Scene />
         </Canvas>
-        <Loader />
       </div>
 
       <div className={styles.splashText}>
