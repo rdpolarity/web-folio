@@ -7,6 +7,7 @@ import { Badge, Card, Modal, Text, Button } from "@nextui-org/react";
 import { GithubFilled, GlobalOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Maybe } from "graphql/jsutils/Maybe";
+import Image, { ImageLoader, ImageLoaderProps } from "next/image";
 
 interface ProjectProps {
   title?: string | null;
@@ -15,6 +16,11 @@ interface ProjectProps {
   github?: Maybe<string>;
   website?: Maybe<string>;
 }
+
+const cloudinaryLoader = ({ src, width }: ImageLoaderProps) => {
+  // https://res.cloudinary.com/dxn4wbidw/image/upload/w_100/chrome_j_JN_7c5ll_Hv_0e85e09e95.png?updated_at=2022-11-10T05:00:51.989Z
+  return src.replace("upload/", `upload/w_${width}/`);
+};
 
 const Project = (props: ProjectProps) => {
   const [visible, setVisible] = useState(false);
@@ -73,7 +79,14 @@ const Project = (props: ProjectProps) => {
           </div>
         </Modal.Header>
         <Modal.Body css={{ p: 0 }}>
-          <img src={props.thumbnail ?? ""} alt="modal image" />
+          <Image
+            src={props.thumbnail ?? ""}
+            alt="Project image"
+            width="100%"
+            height="100%"
+            layout="responsive"
+            objectFit="contain"
+          />
         </Modal.Body>
         <Modal.Footer css={{ justifyContent: "center" }}>{badges}</Modal.Footer>
       </Modal>
@@ -108,13 +121,14 @@ const Project = (props: ProjectProps) => {
               {props.title}
             </Text>
           </Card.Header>
-          <Card.Body css={{ p: 0 }}>
-            <Card.Image
-              height={260}
-              width="100%"
-              objectFit="cover"
-              alt="Card Background"
+          <Card.Body css={{ p: 0, height: 260 }}>
+            <Image
               src={props.thumbnail ?? ""}
+              alt="Project image"
+              objectFit="cover"
+              layout="fill"
+              quality={10}
+              objectPosition="center"
             />
           </Card.Body>
           <Card.Footer

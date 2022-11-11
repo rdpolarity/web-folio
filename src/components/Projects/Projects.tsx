@@ -71,12 +71,15 @@ const Projects = ({ projects }: ProjectsProps) => {
   const filteredProjects = filteredProjectList?.map((project, index) => {
     const attributes = project.attributes;
     const tags = attributes?.tags?.data;
+
+    const imageName = attributes?.thumbnail?.data?.attributes?.url.split('/').pop();
+
     return (
       <Project
         key={index}
         title={attributes?.name}
         tags={tags}
-        thumbnail={attributes?.thumbnail?.data?.attributes?.url}
+        thumbnail={imageName}
         github={attributes?.github}
         website={attributes?.link}
       />
