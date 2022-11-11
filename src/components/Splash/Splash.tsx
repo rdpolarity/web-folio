@@ -80,7 +80,6 @@ const Scene = observer(() => {
   });
 
   function Loader() {
-    const { active, progress, errors, item, loaded, total } = useProgress();
     return <Html center>
       <Loading size="xl"/>
     </Html>;
