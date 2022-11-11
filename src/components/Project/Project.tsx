@@ -57,7 +57,7 @@ const Project = (props: ProjectProps) => {
           </Text>
           <div style={{ display: "flex", gap: 10 }}>
             {props.github && (
-              <Link href={props.github ?? ""} target="_blank">
+              <a href={props.github ?? ""} target="_blank" rel="noreferrer">
                 <Button
                   icon={<GithubFilled />}
                   ghost
@@ -67,14 +67,14 @@ const Project = (props: ProjectProps) => {
                 >
                   Github
                 </Button>
-              </Link>
+              </a>
             )}
             {props.website && (
-              <Link href={props.website ?? ""} target="_blank">
+              <a href={props.website ?? ""} target="_blank" rel="noreferrer">
                 <Button icon={<GlobalOutlined />} ghost color="primary" auto>
                   Website
                 </Button>
-              </Link>
+              </a>
             )}
           </div>
         </Modal.Header>
