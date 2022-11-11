@@ -19,6 +19,7 @@ const Header = ({ cv }: { cv: CvQuery }) => {
     return (
       <div style={{ display: "flex", alignItems: "center", marginBottom: 5 }}>
         <Image
+          unoptimized
           src={icon}
           className={styles.icon}
           width={20}
