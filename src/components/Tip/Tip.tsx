@@ -17,6 +17,7 @@ const Tip = observer(() => {
     <div className={styles.tip} ref={tip}>
       <div className={styles.tipTitle}>
         <Image
+          unoptimized
           src={"/light.svg"}
           width={15}
           height={15}
