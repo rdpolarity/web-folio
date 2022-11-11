@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import styles from "./Splash.module.scss";
 import { Canvas, useFrame } from "@react-three/fiber";
 import {
@@ -11,10 +11,14 @@ import {
   Stage,
   useFBX,
   useTexture,
+  Loader,
+  useProgress,
+  Html,
 } from "@react-three/drei";
 import { Quaternion, Vector2, Vector3 } from "three";
-import { globalStore, useGlobalStore } from "stores/GlobalStore";
+import { useGlobalStore } from "stores/GlobalStore";
 import { observer } from "mobx-react-lite";
+import { Loading } from "@nextui-org/react";
 
 const Scene = observer(() => {
   const camera = useRef<THREE.PerspectiveCamera>();
@@ -67,7 +71,6 @@ const Scene = observer(() => {
       const focus = new Vector3(0, 0.2, 0).add(offset);
       camera.current.lookAt(focus ?? 0, 0, 0);
 
-
       const rot = new Quaternion();
       camera.current.getWorldQuaternion(rot);
 
@@ -76,67 +79,76 @@ const Scene = observer(() => {
     }
   });
 
+  function Loader() {
+    const { active, progress, errors, item, loaded, total } = useProgress();
+    return <Html center>
+      <Loading size="xl"/>
+    </Html>;
+  }
+
   return (
-    <Stage intensity={0.5} preset="soft">
-      <OrbitControls
-        makeDefault
-        enableZoom={false}
-        target={[0, 0.2, 0]}
-        maxPolarAngle={1.5}
-      />
-      <ambientLight intensity={0.5} />
-      <OrthographicCamera makeDefault zoom={150} ref={camera}/>
-      <Float
-        rotationIntensity={0}
-        floatIntensity={1}
-        speed={3}
-        onClick={incrementMesh}
-      >
-        <mesh rotation={[0, -0.5, 0]}>
-          <mesh
-            {...logo.children[0]}
-            position={[0.12, 0.4, 0]}
-            scale={20}
-            visible={meshIndex === 0}
-            ref={mesh as any}
-          >
-            <GradMat />
+    <Suspense fallback={<Loader/>}>
+      <Stage intensity={0.5} preset="soft">
+        <OrbitControls
+          makeDefault
+          enableZoom={false}
+          target={[0, 0.2, 0]}
+          maxPolarAngle={1.5}
+        />
+        <ambientLight intensity={0.5} />
+        <OrthographicCamera makeDefault zoom={150} ref={camera} />
+        <Float
+          rotationIntensity={0}
+          floatIntensity={1}
+          speed={3}
+          onClick={incrementMesh}
+        >
+          <mesh rotation={[0, -0.5, 0]}>
+            <mesh
+              {...logo.children[0]}
+              position={[0.12, 0.4, 0]}
+              scale={20}
+              visible={meshIndex === 0}
+              ref={mesh as any}
+            >
+              <GradMat />
+            </mesh>
+            <mesh position={[0, 1, 0]} visible={meshIndex === 1}>
+              <boxGeometry attach="geometry" args={[1, 1, 1]} />
+              <GradMat />
+            </mesh>
+            <DreiImage
+              url={"https://i.imgur.com/s1xzKqL.png"}
+              visible={meshIndex === 1}
+              position={[0.1, 1, -0.52]}
+              rotation={[0, 180 - 0.95, 0]}
+              transparent
+            />
+            <mesh position={[0, 1, 0]} visible={meshIndex === 2}>
+              <octahedronGeometry attach="geometry" args={[0.8, 0]} />
+              <GradMat />
+            </mesh>
+            <mesh
+              {...grassBlock.children[0]}
+              position={[0, 1, 0]}
+              visible={meshIndex === 3}
+              scale={0.5}
+            >
+              <meshStandardMaterial {...grassTexture} />
+            </mesh>
+            <mesh position={[0, 1, 0]} visible={meshIndex === 4}>
+              <sphereGeometry attach="geometry" args={[0.5, 32, 32]} />
+              <GradMat />
+            </mesh>
           </mesh>
-          <mesh position={[0, 1, 0]} visible={meshIndex === 1}>
-            <boxGeometry attach="geometry" args={[1, 1, 1]} />
-            <GradMat />
-          </mesh>
-          <DreiImage
-            url={"https://i.imgur.com/s1xzKqL.png"}
-            visible={meshIndex === 1}
-            position={[0.1, 1, -0.52]}
-            rotation={[0, 180 - 0.95, 0]}
-            transparent
-          />
-          <mesh position={[0, 1, 0]} visible={meshIndex === 2}>
-            <octahedronGeometry attach="geometry" args={[0.8, 0]} />
-            <GradMat />
-          </mesh>
-          <mesh
-            {...grassBlock.children[0]}
-            position={[0, 1, 0]}
-            visible={meshIndex === 3}
-            scale={0.5}
-          >
-            <meshStandardMaterial {...grassTexture} />
-          </mesh>
-          <mesh position={[0,1,0]} visible={meshIndex === 4}>
-            <sphereGeometry attach="geometry" args={[0.5, 32, 32]} />
-            <GradMat/>
-          </mesh>
-        </mesh>
-      </Float>
-      <Plane
-        args={[10, 10]}
-        rotation={[-Math.PI / 2, 0, 0]}
-        visible={false}
-      ></Plane>
-    </Stage>
+        </Float>
+        <Plane
+          args={[10, 10]}
+          rotation={[-Math.PI / 2, 0, 0]}
+          visible={false}
+        ></Plane>
+      </Stage>
+    </Suspense>
   );
 });
 const Splash = observer(() => {
@@ -153,26 +165,28 @@ const Splash = observer(() => {
   }, [dots, store]);
 
   const Dot = ({ index }: { index: number }) => {
-    
     const onToggleHandler = () => {
       const newDots = [...dots];
       newDots[index] = !newDots[index];
       setDots(newDots);
-    }
+    };
 
     return (
-      <span className={`${styles.dot} ${dots[index] ? styles.dot__toggled : ''}`} onClick={onToggleHandler}>
+      <span
+        className={`${styles.dot} ${dots[index] ? styles.dot__toggled : ""}`}
+        onClick={onToggleHandler}
+      >
         .
       </span>
     );
   };
-
   return (
     <div className={styles.splash}>
       <div className={styles.splashImage}>
         <Canvas style={{ cursor: "pointer" }}>
           <Scene />
         </Canvas>
+        <Loader />
       </div>
 
       <div className={styles.splashText}>
