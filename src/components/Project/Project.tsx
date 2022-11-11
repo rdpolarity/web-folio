@@ -126,8 +126,8 @@ const Project = (props: ProjectProps) => {
               src={props.thumbnail ?? ""}
               alt="Project image"
               objectFit="cover"
-              layout="fill"
-              quality={10}
+              height={260*2.5}
+              width={100*2.5}
               objectPosition="center"
             />
           </Card.Body>
