@@ -41,17 +41,15 @@ const Section = ({
           }}
         />
         <div className={styles.sectionContent}>
-          <Text h2 css={{ m: 0 }}>
-            {title}
-          </Text>
-          <Text h3 css={{ m: 0, mt: -10 }} color="grey">
-            {subtitle}
-          </Text>
+          <h2 className="text-xl text-primary">{title}</h2>
+          <h3 className="-mt-4 text-gray-400">{subtitle}</h3>
           {progress ||
             (progress !== 0 && (
               <Progress color="primary" value={progress ?? 0} />
             ))}
-          <ReactMarkdown>
+          <ReactMarkdown components={{
+            ul: ({children}) => <ul className="list-disc pl-5 marker:text-primary">{children}</ul>,
+          }}>
             {children}
           </ReactMarkdown>
           <div className={styles.sectionContentTags}>

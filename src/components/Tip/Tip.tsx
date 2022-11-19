@@ -14,7 +14,7 @@ const Tip = observer(() => {
   }, [store.isDotsFound, store.isMinecraftFound, store.isSpyroFound]);
 
   return (
-    <div className={styles.tip} ref={tip}>
+    <div className={`${styles.tip} hidden md:flex`} ref={tip}>
       <div className={styles.tipTitle}>
         <Image
           unoptimized

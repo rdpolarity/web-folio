@@ -1,14 +1,61 @@
-import React, { ReactNode } from 'react'
-import styles from './Button.module.scss'
-import Image from 'next/image'
+import React, { ReactNode } from "react";
+import Image from "next/image";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const Button = ({children, image, onClick} : { children?: ReactNode, image?: string, onClick?: React.MouseEventHandler}) => {
-  return (
-    <button className={styles.button} onClick={onClick}>
-      {image && <Image src={image} width={20} height={20} alt="logo"/>}
-      {children}
-    </button>
-  )
-}
+const common = [
+  "rounded-lg",
+  "font-bold",
+]
 
-export default Button
+const button = cva("button", {
+  variants: {
+    intent: {
+      primary: [
+        ...common,
+        "bg-primary",
+        "text-white",
+        "border-transparent",
+        "hover:bg-primary/80",
+      ],
+      outline: [
+        ...common,
+        "text-black",
+        "border-black",
+        "border-2",
+        "hover:bg-black/5",
+        "hover:scale-105"
+      ],
+      gradient: [
+        ...common,
+        "bg-gradient-to-tr from-primary to-cyan-400",
+        "text-white",
+        "hover:scale-105"
+      ]
+    },
+    size: {
+      small: ["text-sm", "py-1", "px-2"],
+      medium: ["text-base", "py-2", "px-4"],
+    },
+  },
+  compoundVariants: [
+    { intent: "primary", size: "medium", className: "uppercase" },
+  ],
+  defaultVariants: {
+    intent: "primary",
+    size: "medium",
+  },
+});
+export interface ButtonProps
+  extends React.HTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof button> {}
+
+const Button: React.FC<ButtonProps> = ({
+  className,
+  intent,
+  size,
+  ...props
+}) => {
+  return <button className={button({intent, size, className})} {...props} />;
+};
+
+export default Button;

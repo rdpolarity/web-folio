@@ -1,11 +1,10 @@
-import Max from "@components/Max/Max";
-import { Col, Row } from "antd";
-import styles from './Container.module.scss'
 
-const Container = ({children, style} : any) => {
-  return <Max className={styles.container} style={style} gutter={16}>
-    {children}
-  </Max>
+const Container = ({children} : any) => {
+  return <div className="flex justify-center px-4">
+    <div className="max-w-[1000px]">
+      {children}
+    </div>
+  </div>
 }
 
 export default Container;

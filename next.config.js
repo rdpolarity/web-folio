@@ -2,11 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    images: {
-      allowFutureImage: true,
-    },
-  },
   images: {
     loader: 'cloudinary',
     path: 'https://res.cloudinary.com/dxn4wbidw/image/upload/',

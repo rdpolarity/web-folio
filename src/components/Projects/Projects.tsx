@@ -10,8 +10,8 @@ import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
 import { useRouter } from "next/router";
 import { ProjectsProps } from "@pages/index";
-import { Button } from "@nextui-org/react";
 import Link from "next/link";
+import Button from "@components/Button/Button";
 
 const Projects = ({ projects }: ProjectsProps) => {
   const router = useRouter();
@@ -72,7 +72,9 @@ const Projects = ({ projects }: ProjectsProps) => {
     const attributes = project.attributes;
     const tags = attributes?.tags?.data;
 
-    const imageName = attributes?.thumbnail?.data?.attributes?.url.split('/').pop();
+    const imageName = attributes?.thumbnail?.data?.attributes?.url
+      .split("/")
+      .pop();
 
     return (
       <Project
@@ -96,20 +98,15 @@ const Projects = ({ projects }: ProjectsProps) => {
       <div className={styles.alert}>
         <Tip />
         <div style={{ display: "flex", gap: 10 }}>
-          <Button
-            auto
-            color="gradient"
-            onClick={() => router.push("/cv")}
-            animated
-            icon={<FileFilled />}
+          <Link href={"/cv"}>
+            <Button intent={"gradient"}>Resume</Button>
+          </Link>
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://github.com/rdpolarity"
           >
-            CV
-          </Button>
-          <a rel="noreferrer" target="_blank" href="https://github.com/rdpolarity">
-            {/* @ts-ignore */}
-            <Button auto icon={<GithubFilled />} bordered color="#111">
-              Github
-            </Button>
+            <Button intent={"outline"}>Github</Button>
           </a>
         </div>
       </div>

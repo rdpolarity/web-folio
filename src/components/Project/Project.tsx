@@ -5,9 +5,8 @@ import styles from "./Project.module.scss";
 import Tilt from "react-parallax-tilt";
 import { Badge, Card, Modal, Text, Button } from "@nextui-org/react";
 import { GithubFilled, GlobalOutlined } from "@ant-design/icons";
-import Link from "next/link";
 import { Maybe } from "graphql/jsutils/Maybe";
-import Image, { ImageLoader, ImageLoaderProps } from "next/image";
+import Image, { ImageLoaderProps } from "next/image";
 
 interface ProjectProps {
   title?: string | null;
@@ -25,13 +24,7 @@ const cloudinaryLoader = ({ src, width }: ImageLoaderProps) => {
 const Project = (props: ProjectProps) => {
   const [visible, setVisible] = useState(false);
   const badges = props.tags?.map((tag: any, index: any) => (
-    <Badge
-      enableShadow
-      style={{ margin: 0 }}
-      key={index}
-      disableOutline
-      color="primary"
-    >
+    <Badge style={{ margin: 0 }} key={index} disableOutline color="primary">
       {tag.attributes?.icon?.data?.attributes?.url && (
         <img
           className={styles.projectTagsIcon}
@@ -91,62 +84,26 @@ const Project = (props: ProjectProps) => {
         <Modal.Footer css={{ justifyContent: "center" }}>{badges}</Modal.Footer>
       </Modal>
       <Tilt tiltMaxAngleX={3} tiltMaxAngleY={3} glareMaxOpacity={0.5}>
-        <Card
+        <button
           onClick={() => setVisible(true)}
-          className={styles.project}
-          css={{
-            width: 230,
-            maxHeight: 300,
-          }}
-          isPressable
+          className="h-[300px] w-[230px] relative rounded-2xl overflow-hidden border-gray-100 border-2 ripple hover:shadow-2xl transition-all duration-300 hover:scale-105"
         >
-          <Card.Header
-            css={{
-              position: "absolute",
-              zIndex: 1,
-              top: 0,
-              p: 0,
-              h: 100,
-              alignItems: "start",
-            }}
-          >
-            <div className={styles.projectGradient} />
-            <Text
-              size={18}
-              weight="bold"
-              transform="uppercase"
-              color="white"
-              css={{ p: 10, top: 10 }}
-            >
-              {props.title}
-            </Text>
-          </Card.Header>
-          <Card.Body css={{ p: 0, height: 260 }}>
-            <Image
-              src={props.thumbnail ?? ""}
-              alt="Project image"
-              objectFit="cover"
-              height={260*2.5}
-              width={100*2.5}
-              objectPosition="center"
-            />
-          </Card.Body>
-          <Card.Footer
-            isBlurred
-            className={styles.projectFooter}
-            css={{
-              position: "absolute",
-              bgBlur: "#ffffff66",
-              borderTop: "$borderWeights$light solid rgba(255, 255, 255, 0.2)",
-              bottom: 0,
-              zIndex: 1,
-              gap: 5,
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="absolute bg-gradient-to-b from-black/50 w-full h-20 z-10 p-3">
+            <p className="text-lg text-white font-bold">{props.title}</p>
+          </div>
+          <Image
+            src={props.thumbnail ?? ""}
+            alt="Project image"
+            objectFit="cover"
+            height={300}
+            width={230}
+            quality={50}
+            objectPosition="center"
+          />
+          <div className="absolute bottom-0 p-3 flex gap-1 flex-wrap">
             {badges}
-          </Card.Footer>
-        </Card>
+          </div>
+        </button>
       </Tilt>
     </>
   );

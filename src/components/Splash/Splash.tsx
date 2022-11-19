@@ -180,14 +180,14 @@ const Splash = observer(() => {
     );
   };
   return (
-    <div className={styles.splash}>
+    <div className={`${styles.splash} justify-center md:justify-start`}>
       <div className={styles.splashImage}>
         <Canvas style={{ cursor: "pointer" }}>
           <Scene />
         </Canvas>
       </div>
 
-      <div className={styles.splashText}>
+      <div className={`${styles.splashText} hidden md:block`}>
         <h1>
           Aiden Mellor
           <Dot index={0} />
