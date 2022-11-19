@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 const common = [
   "rounded-lg",
-  "font-bold",
+  "font-bold"
 ]
 
 const button = cva("button", {
@@ -14,8 +14,7 @@ const button = cva("button", {
         ...common,
         "bg-primary",
         "text-white",
-        "border-transparent",
-        "hover:bg-primary/80",
+        "hover:bg-blue-600",
       ],
       outline: [
         ...common,
@@ -29,6 +28,8 @@ const button = cva("button", {
         ...common,
         "bg-gradient-to-tr from-primary to-cyan-400",
         "text-white",
+        "border-cyan-400",
+        "border-2",
         "hover:scale-105"
       ]
     },
@@ -37,9 +38,6 @@ const button = cva("button", {
       medium: ["text-base", "py-2", "px-4"],
     },
   },
-  compoundVariants: [
-    { intent: "primary", size: "medium", className: "uppercase" },
-  ],
   defaultVariants: {
     intent: "primary",
     size: "medium",

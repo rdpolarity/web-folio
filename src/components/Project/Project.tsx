@@ -3,10 +3,11 @@ import { TagEntity } from "@api/generated/api";
 import React, { useState } from "react";
 import styles from "./Project.module.scss";
 import Tilt from "react-parallax-tilt";
-import { Badge, Card, Modal, Text, Button } from "@nextui-org/react";
+import { Badge, Modal, Text } from "@nextui-org/react";
 import { GithubFilled, GlobalOutlined } from "@ant-design/icons";
 import { Maybe } from "graphql/jsutils/Maybe";
 import Image, { ImageLoaderProps } from "next/image";
+import Button from "@components/Button/Button";
 
 interface ProjectProps {
   title?: string | null;
@@ -52,11 +53,7 @@ const Project = (props: ProjectProps) => {
             {props.github && (
               <a href={props.github ?? ""} target="_blank" rel="noreferrer">
                 <Button
-                  icon={<GithubFilled />}
-                  ghost
-                  color="gradient"
-                  auto
-                  animated
+                  intent={"gradient"}
                 >
                   Github
                 </Button>
@@ -64,7 +61,7 @@ const Project = (props: ProjectProps) => {
             )}
             {props.website && (
               <a href={props.website ?? ""} target="_blank" rel="noreferrer">
-                <Button icon={<GlobalOutlined />} ghost color="primary" auto>
+                <Button intent={'outline'}>
                   Website
                 </Button>
               </a>
