@@ -28,7 +28,8 @@ $line-width: 2px;
 
 .line {
   border-left: $line-width solid rgb(81, 81, 81);
-  height: 100%;
+  height: fit-content;
+  margin-bottom: 50px;
 
   &Dot {
     $width: 15px;
