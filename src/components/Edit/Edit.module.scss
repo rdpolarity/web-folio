@@ -3,4 +3,8 @@
   top: 0;
   right: 0;
   margin: 8px;
+
+  @media print {
+    display: none;
+  }
 }
