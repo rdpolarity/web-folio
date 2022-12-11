@@ -1,0 +1,122 @@
+$primary: #0072f5;
+$line-width: 2px;
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+
+  &Profile {
+    &Picture {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      margin-right: 50px;
+      background-position: center;
+      background-size: cover;
+    }
+  }
+  &Details {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      margin: 0;
+    }
+  }
+}
+
+.line {
+  border-left: $line-width solid rgb(81, 81, 81);
+  height: fit-content;
+  margin-bottom: 50px;
+
+  &Dot {
+    $width: 15px;
+    width: $width;
+    height: $width;
+    border-radius: 50%;
+    background-color: black;
+    margin-left: -($width / 2) - ($line-width / 2);
+  }
+}
+
+@for $i from 0 through 20 {
+  .sectionContainer *:nth-child(#{$i}n) {
+    animation-delay: #{$i * 0.1s} !important;
+  }
+}
+
+.sectionContainer > * {
+  animation: slideIn 1s ease-in-out forwards;
+  opacity: 0;
+  @keyframes slideIn {
+    from {
+      transform: translateY(-10%);
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0px;
+  gap: 24px;
+
+  &Content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &Tags > * {
+      margin-right: 5px;
+    }
+  }
+
+  &Icon {
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  @media print {
+    page-break-inside: avoid;
+  }
+}
+
+.tab {
+  border-radius: 5px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+
+  &Text {
+    margin-left: 10px;
+  }
+}
+
+.download {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  z-index: 10;
+  border-radius: 10px;
+  padding: 5px 10px;
+
+  @media print {
+    display: none;
+  }
+}
