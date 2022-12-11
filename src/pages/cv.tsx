@@ -1,5 +1,5 @@
 import { CvQuery, CvQueryVariables, CvDocument } from "@api/generated/api";
-import CVPage from "@components/Pages/CV/CVPage";
+import CVPage from "@components/pages/CV/CVPage";
 import React from "react";
 import fetcher from "utility/fetcher";
 

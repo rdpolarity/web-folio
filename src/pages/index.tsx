@@ -1,5 +1,5 @@
 import { ProjectEntity, ProjectsDocument, ProjectsQuery, ProjectsQueryVariables } from "@api/generated/api";
-import Home from "@components/Pages/Home/Home";
+import Home from "@components/pages/Home/Home";
 import fetcher from "utility/fetcher";
 
 export async function getStaticProps() {
