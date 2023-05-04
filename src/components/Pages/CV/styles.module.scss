@@ -77,6 +77,25 @@ $line-width: 2px;
     &Tags > * {
       margin-right: 5px;
     }
+
+    ul {
+
+      li::before {
+        content: "•";
+        color: $primary; 
+        display: inline-block;
+        width: 1em;
+
+      }
+
+      p {
+        display: inline;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
   }
 
   &Icon {

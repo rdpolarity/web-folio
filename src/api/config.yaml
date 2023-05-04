@@ -1,16 +1,25 @@
 override: true
-schema: ${NEXT_PUBLIC_ENDPOINT}/graphql
+schema:
+  - ${NEXT_PUBLIC_ENDPOINT}:
+      headers:
+        Authorization: ${API_ACCESS_TOKEN}
 documents: './src/api/**/*.graphql'
 generates:
   ./src/api/generated/api.ts:
     plugins:
       - typescript
-      - typescript-operations
-      - typescript-react-query
-    config:
-      fetcher:
-    
-        endpoint: ${NEXT_PUBLIC_ENDPOINT}/graphql
-        fetchParams:
-          headers:
-            Content-Type: application/json
+      - typescript-operations:
+          strictScalars: true
+          scalars:
+            BooleanType: boolean
+            CustomData: Record<string, unknown>
+            Date: string
+            DateTime: string
+            FloatType: number
+            IntType: number
+            ItemId: string
+            JsonField: unknown
+            MetaTagAttributes: Record<string, string>
+            UploadId: string
+      - typed-document-node
+      # - typescript-react-query

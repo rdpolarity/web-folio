@@ -1,19 +1,18 @@
-import { CvQuery } from "@api/generated/api";
 import { Text } from "@nextui-org/react";
 import styles from "./styles.module.scss";
 import Image from "next/image";
 
-const Header = ({ cv }: { cv: CvQuery }) => {
-  const {
-    Title,
-    Subtitle,
-    Email,
-    Number,
-    LinkedIn,
-    Location,
-    Website,
-    Profile,
-  } = cv.cv?.data?.attributes ?? {};
+export interface HeaderProps {
+  title?: string | null;
+  subtitle?: string | null;
+  email?: string | null;
+  number?: string | null;
+  linkedIn?: string | null;
+  location?: string | null;
+  website?: string | null;
+  profile?: string | null;
+}
+const Header = (props: HeaderProps) => {
 
   const IconText = ({ icon, children }: any) => {
     return (
@@ -37,23 +36,23 @@ const Header = ({ cv }: { cv: CvQuery }) => {
         <div
           className={styles.headerProfilePicture}
           style={{
-            backgroundImage: `url(${Profile?.data?.attributes?.url})`,
+            backgroundImage: `url(${props.profile})`,
           }}
         />
       </div>
       <div className={styles.headerDetails}>
         <Text size={50} weight="bold">
-          {Title}
+          {props.title}
         </Text>
         <Text size={30} color="#0072f5" css={{ mt: -15 }}>
-          {Subtitle}
+          {props.subtitle}
         </Text>
         <div style={{ marginTop: 10 }}>
-          <IconText icon="/Location.svg">{Location}</IconText>
-          <IconText icon="/Number.svg">{Number}</IconText>
-          <IconText icon="/Email.svg">{Email}</IconText>
-          <IconText icon="/LinkedIn.svg">{LinkedIn}</IconText>
-          <IconText icon="/Internet.svg">{Website}</IconText>
+          <IconText icon="/Location.svg">{props.location}</IconText>
+          <IconText icon="/Number.svg">{props.number}</IconText>
+          <IconText icon="/Email.svg">{props.email}</IconText>
+          <IconText icon="/LinkedIn.svg">{props.linkedIn}</IconText>
+          <IconText icon="/Internet.svg">{props.website}</IconText>
         </div>
       </div>
     </div>

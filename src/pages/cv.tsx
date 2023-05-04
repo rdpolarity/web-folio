@@ -1,17 +1,21 @@
 import { CvQuery, CvQueryVariables, CvDocument } from "@api/generated/api";
 import CVPage from "@components/Pages/CV/CVPage";
+import { GetStaticProps, NextPage } from "next";
 import React from "react";
-import fetcher from "utility/fetcher";
+import { request } from "utility/request";
 
-export async function getStaticProps() {
-  const res = await fetcher<CvQuery, CvQueryVariables>(CvDocument)();
+type cvPageProps = { result: CvQuery}
+
+export const getStaticProps: GetStaticProps<cvPageProps> = async (context) => {
+  const result = await request(CvDocument);
+
   return {
-    props: {
-      cv: res,
-    }
+    props: { result }
   }
 }
 
-export default function cv({cv} : {cv: any}) {
-  return <CVPage cv={cv}/>;
-}
+const cv: NextPage<cvPageProps> = ({ result }) => {
+  return <CVPage data={result}/>;
+};
+
+export default cv;
