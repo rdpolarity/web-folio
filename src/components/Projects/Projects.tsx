@@ -2,29 +2,17 @@ import { Card, Select } from "antd";
 import Project from "@components/Project/Project";
 import React from "react";
 import styles from "./Projects.module.scss";
-import api from "@api/api";
-import { FileFilled, GithubFilled, SearchOutlined } from "@ant-design/icons";
-import { ProjectEntity, ProjectsQuery } from "@api/generated/api";
+import { SearchOutlined } from "@ant-design/icons";
+import { ProjectsQuery } from "@api/generated/api";
 import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
-import { useRouter } from "next/router";
-import { ProjectsProps } from "@pages/index";
 import Link from "next/link";
 import Button from "@components/Button/Button";
 
 type AllProjects = ProjectsQuery["allProjects"];
 
 const Projects = ({ data }: { data: ProjectsQuery }) => {
-  const router = useRouter();
-  // const {
-  //   data: tags,
-  //   isLoading: isLoadingTags,
-  //   isError: isErrorTags,
-  //   error: errorTags,
-  // } = api.useTagsQuery();
-
-  // const tags = data?.;
 
   const [filter, setFilter] = React.useState<string[] | undefined>(undefined);
   const [projectList, setProjectList] =

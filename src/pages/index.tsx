@@ -1,5 +1,5 @@
 import { ProjectsDocument, ProjectsQuery } from "@api/generated/api";
-import Home from "@components/Pages/Home/Home";
+import Home from "@components/pages/Home/Home";
 import { GetStaticProps, NextPage } from "next";
 import { request } from "utility/request";
 
