@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./Projects.module.scss";
 import api from "@api/api";
 import { FileFilled, GithubFilled, SearchOutlined } from "@ant-design/icons";
-import { ProjectEntity } from "@api/generated/api";
+import { ProjectEntity, ProjectsQuery } from "@api/generated/api";
 import Meta from "antd/lib/card/Meta";
 import Tip from "@components/Tip/Tip";
 import { globalStore } from "stores/GlobalStore";
@@ -13,20 +13,24 @@ import { ProjectsProps } from "@pages/index";
 import Link from "next/link";
 import Button from "@components/Button/Button";
 
-const Projects = ({ projects }: ProjectsProps) => {
+type AllProjects = ProjectsQuery["allProjects"];
+
+const Projects = ({ data }: { data: ProjectsQuery }) => {
   const router = useRouter();
-  const {
-    data: tags,
-    isLoading: isLoadingTags,
-    isError: isErrorTags,
-    error: errorTags,
-  } = api.useTagsQuery();
+  // const {
+  //   data: tags,
+  //   isLoading: isLoadingTags,
+  //   isError: isErrorTags,
+  //   error: errorTags,
+  // } = api.useTagsQuery();
+
+  // const tags = data?.;
 
   const [filter, setFilter] = React.useState<string[] | undefined>(undefined);
   const [projectList, setProjectList] =
-    React.useState<ProjectEntity[]>(projects);
+    React.useState<AllProjects>(data?.allProjects);
   const [filteredProjectList, setFilteredProjectList] =
-    React.useState<ProjectEntity[]>();
+    React.useState<AllProjects>();
 
   React.useEffect(() => {
     if (!filter || filter.length === 0) {
@@ -34,20 +38,18 @@ const Projects = ({ projects }: ProjectsProps) => {
       return;
     }
     const filteredProjects = projectList?.filter((project) =>
-      project.attributes?.tags?.data.some((tag) => {
+      project.tags?.some((tag) => {
         return filter.some((filterTag) => {
+          if (!tag.name) return false;
           return (
             filterTag.toLocaleLowerCase() ==
-            tag.attributes?.name.toLocaleLowerCase()
+            tag.name.toLocaleLowerCase()
           );
         });
       })
     );
-
     setFilteredProjectList(filteredProjects);
   }, [filter, projectList]);
-
-  // if (isError) return <div>{error as any}</div>;
 
   const loadingCard = (
     <Card style={{ width: 230, height: 300 }} loading>
@@ -69,21 +71,20 @@ const Projects = ({ projects }: ProjectsProps) => {
   );
 
   const filteredProjects = filteredProjectList?.map((project, index) => {
-    const attributes = project.attributes;
-    const tags = attributes?.tags?.data;
+    const tags = project.tags;
 
-    const imageName = attributes?.thumbnail?.data?.attributes?.url
+    const imageName = project.thumbnail?.url
       .split("/")
       .pop();
 
     return (
       <Project
         key={index}
-        title={attributes?.name}
-        tags={tags}
-        thumbnail={imageName}
-        github={attributes?.github}
-        website={attributes?.link}
+        title={project?.title}
+        tags={tags.map((tag) => tag.name as string)}
+        thumbnail={project?.thumbnail?.responsiveImage}
+        github={project?.github}
+        website={project?.link}
       />
     );
   });
@@ -122,9 +123,9 @@ const Projects = ({ projects }: ProjectsProps) => {
           suffixIcon={<SearchOutlined />}
           onChange={onFilterHandler}
         >
-          {tags?.tags?.data.map((tag, index) => (
-            <Select.Option key={index} value={tag.attributes?.name}>
-              {tag.attributes?.name}
+          {data.allTags.map((tag, index) => (
+            <Select.Option key={index} value={tag.name}>
+              {tag.name}
             </Select.Option>
           ))}
         </Select>

@@ -1,21 +1,18 @@
-import { ProjectEntity, ProjectsDocument, ProjectsQuery, ProjectsQueryVariables } from "@api/generated/api";
+import { ProjectsDocument, ProjectsQuery } from "@api/generated/api";
 import Home from "@components/Pages/Home/Home";
-import fetcher from "utility/request";
+import { GetStaticProps, NextPage } from "next";
+import { request } from "utility/request";
 
-export async function getStaticProps() {
-  const res = await fetcher<ProjectsQuery, ProjectsQueryVariables>(ProjectsDocument)();
+type HomePageProps = { result: ProjectsQuery };
+
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  const result = await request(ProjectsDocument);
   return {
-    props: {
-      projects: res.projects?.data,
-    },
+    props: { result },
   };
-}
+};
 
-export interface ProjectsProps {
-  projects: ProjectEntity[];
-}
-
-const Index = (props : ProjectsProps) => {
-  return <Home projects={props.projects} />;
+const Index: NextPage<HomePageProps> = ({ result }) => {
+  return <Home data={result} />;
 };
 export default Index;

@@ -1,0 +1,32 @@
+query Projects {
+  allProjects {
+    title
+    link
+    github
+    thumbnail {
+      url
+      responsiveImage(
+        imgixParams: { fit: crop, w: 300, h: 300, auto: format }
+      ) {
+        width
+        title
+        base64
+        height
+        bgColor
+        alt
+        src
+      }
+    }
+    tags {
+      name
+    }
+    description {
+      value
+      links
+      blocks
+    }
+  }
+  allTags {
+    name
+  }
+}

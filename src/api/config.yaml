@@ -4,6 +4,8 @@ schema:
       headers:
         Authorization: ${API_ACCESS_TOKEN}
 documents: './src/api/**/*.graphql'
+config:
+  namingConvention: ./src/api/fixNames.js
 generates:
   ./src/api/generated/api.ts:
     plugins:
@@ -22,4 +24,3 @@ generates:
             MetaTagAttributes: Record<string, string>
             UploadId: string
       - typed-document-node
-      # - typescript-react-query

@@ -3,9 +3,9 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Projects from '@components/Projects/Projects'
 import Splash from '@components/Splash/Splash'
-import { ProjectsProps } from '@pages/index'
+import { ProjectsQuery } from '@api/generated/api'
 
-const Home = ({projects} : ProjectsProps) => {
+const Home = ({data} : {data: ProjectsQuery}) => {
   return (
     <div>
       <Head>
@@ -15,7 +15,7 @@ const Home = ({projects} : ProjectsProps) => {
       </Head>
       <Container>
         <Splash/>
-        <Projects projects={projects}/>
+        <Projects data={data}/>
       </Container>
     </div>
   )
