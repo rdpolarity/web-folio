@@ -21,11 +21,11 @@
     "@graphql-codegen/typescript-react-query": "^3.6.2",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@nextui-org/react": "^1.0.0-beta.10",
-    "@react-three/drei": "^9.21.0",
-    "@react-three/fiber": "^8.3.1",
+    "@react-three/drei": "^9.77.4",
+    "@react-three/fiber": "^8.13.4",
     "@types/antd": "^1.0.0",
     "@types/logrocket-react": "^3.0.0",
-    "@types/three": "^0.143.0",
+    "@types/three": "^0.149.0",
     "antd": "^4.21.5",
     "axios": "^0.27.2",
     "class-variance-authority": "^0.3.0",
@@ -45,7 +45,7 @@
     "react-parallax-tilt": "^1.7.52",
     "react-query": "^3.39.1",
     "sass": "^1.53.0",
-    "three": "^0.143.0"
+    "three": "^0.153.0"
   },
   "devDependencies": {
     "@types/extract-colors": "^1.1.0",

@@ -5,7 +5,6 @@ import {
   Float,
   GradientTexture,
   OrbitControls,
-  OrthographicCamera,
   Image as DreiImage,
   Plane,
   Stage,
@@ -14,11 +13,13 @@ import {
   Loader,
   useProgress,
   Html,
+  OrthographicCamera,
 } from "@react-three/drei";
 import { Quaternion, Vector2, Vector3 } from "three";
 import { useGlobalStore } from "stores/GlobalStore";
 import { observer } from "mobx-react-lite";
 import { Loading } from "@nextui-org/react";
+import { AnyAaaaRecord } from "dns";
 
 const Scene = observer(() => {
   const camera = useRef<THREE.PerspectiveCamera>();
@@ -67,10 +68,6 @@ const Scene = observer(() => {
 
   useFrame(() => {
     if (camera.current) {
-      const offset = new Vector3(0, 1, 0);
-      const focus = new Vector3(0, 0.2, 0).add(offset);
-      camera.current.lookAt(focus ?? 0, 0, 0);
-
       const rot = new Quaternion();
       camera.current.getWorldQuaternion(rot);
 
@@ -80,14 +77,16 @@ const Scene = observer(() => {
   });
 
   function Loader() {
-    return <Html center>
-      <Loading size="xl"/>
-    </Html>;
+    return (
+      <Html center>
+        <Loading size="xl" />
+      </Html>
+    );
   }
 
   return (
-    <Suspense fallback={<Loader/>}>
-      <Stage intensity={0.5} preset="soft">
+    <Suspense fallback={<Loader />}>
+      <Stage intensity={0.5} preset="soft" adjustCamera={false}>
         <OrbitControls
           makeDefault
           enableZoom={false}
@@ -95,7 +94,12 @@ const Scene = observer(() => {
           maxPolarAngle={1.5}
         />
         <ambientLight intensity={0.5} />
-        <OrthographicCamera makeDefault zoom={150} ref={camera} />
+        <OrthographicCamera
+          makeDefault
+          zoom={120}
+          position={[0, 0, 100]}
+          ref={camera}
+        />
         <Float
           rotationIntensity={0}
           floatIntensity={1}
@@ -104,7 +108,7 @@ const Scene = observer(() => {
         >
           <mesh rotation={[0, -0.5, 0]}>
             <mesh
-              {...logo.children[0]}
+              {...(logo.children[0] as any)}
               position={[0.12, 0.4, 0]}
               scale={20}
               visible={meshIndex === 0}
@@ -128,12 +132,12 @@ const Scene = observer(() => {
               <GradMat />
             </mesh>
             <mesh
-              {...grassBlock.children[0]}
+              {...(grassBlock.children[0] as any)}
               position={[0, 1, 0]}
               visible={meshIndex === 3}
               scale={0.5}
             >
-              <meshStandardMaterial {...grassTexture} />
+              <meshStandardMaterial {...(grassTexture as any)} />
             </mesh>
             <mesh position={[0, 1, 0]} visible={meshIndex === 4}>
               <sphereGeometry attach="geometry" args={[0.5, 32, 32]} />
